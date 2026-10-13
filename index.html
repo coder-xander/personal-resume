@@ -5,77 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="十月的个人简历模板：工作经历、项目与技术技能。"
+      content="Xander，偏系统方向的全栈工程师。负责复杂机器人与消费级 Linux 产品的软件架构设计和代码实现。"
     />
     <meta name="theme-color" content="#f7f8f5" />
-    <title>十月 / Xander · 个人简历</title>
+    <title>Xander · 个人主页</title>
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./style.css" />
-    <script src="./resume.js" defer></script>
+    <script src="./profile.js" defer></script>
     <script src="./app.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">跳到正文</a>
-    <aside class="sidebar" aria-label="个人信息与导航">
-      <a class="brand" href="#about" aria-label="返回个人介绍"
-        ><span class="brand-mark" data-field="initials">X.</span
-        ><span class="brand-label"
-          >个人简历<span class="mono">PERSONAL RESUME</span></span
-        ></a
-      >
-      <button
-        class="menu-toggle icon-button"
-        type="button"
-        aria-label="打开导航"
-        aria-controls="navigation"
-        aria-expanded="false"
-      >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M4 7h16M4 12h16M4 17h16" />
-        </svg>
-      </button>
-      <div class="sidebar-body" id="navigation">
-        <div class="sidebar-profile">
-          <div class="avatar" aria-hidden="true" data-field="initials">X.</div>
-          <p class="profile-name" data-field="name">十月</p>
-          <p class="profile-role" data-field="role">软件工程师</p>
-        </div>
-        <nav class="nav">
-          <a class="active" aria-current="location" href="#about"
-            ><span>01</span>关于我<svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="m7 17 10-10M7 7h10v10" /></svg></a
-          ><a href="#experience"><span>02</span>工作经历</a
-          ><a href="#projects"><span>03</span>项目精选</a
-          ><a href="#skills"><span>04</span>技能与教育</a
-          ><a href="#contact"><span>05</span>联系我</a>
-        </nav>
-        <div class="sidebar-bottom">
-          <span class="side-note">保持好奇。认真构建。</span>
-          <div class="social-row">
-            <a
-              id="gitee-link"
-              href="https://gitee.com/oct1231"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Gitee <span aria-hidden="true">↗</span></a
-            ><button class="contact-trigger" type="button">
-              Email <span aria-hidden="true">↗</span>
-            </button>
-          </div>
-          <span class="mono side-version">RESUME / 01</span>
-        </div>
-      </div>
-    </aside>
-    <div class="page">
-      <header class="topbar">
-        <div class="breadcrumb">
-          <span>个人主页</span><span aria-hidden="true">/</span
-          ><strong>简历</strong>
-        </div>
-        <div class="top-actions">
-          <span class="template-tag" id="template-tag">模板预览</span
-          ><button
-            class="icon-button"
+    <div class="site-shell">
+      <header class="header">
+        <a class="brand" href="#about" aria-label="Xander 个人主页"
+          ><span class="brand-mark">X.</span
+          ><span data-field="name">Xander</span
+          ><span class="brand-period">/</span
+          ><span class="brand-caption">个人主页</span></a
+        >
+        <div class="header-right">
+          <nav aria-label="页面导航">
+            <a href="#about">关于我</a><a href="#focus">技术方向</a>
+          </nav>
+          <button
+            class="theme-toggle"
             id="theme-toggle"
             type="button"
             aria-label="切换到深色模式"
@@ -90,11 +44,7 @@
               <path
                 d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"
               />
-            </svg></button
-          ><button class="print-button" id="print-button" type="button">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 3v12m-4-4 4 4 4-4M5 16v5h14v-5" /></svg
-            ><span>导出 PDF</span>
+            </svg>
           </button>
         </div>
       </header>
@@ -102,53 +52,53 @@
         <section class="hero" id="about" aria-labelledby="hero-heading">
           <div class="hero-copy">
             <div class="eyebrow">
-              <span class="status-dot"></span
-              ><span data-field="status">个人简历 · 初版模板</span>
+              <span class="status-dot" aria-hidden="true"></span
+              ><span class="mono">SYSTEMS · DEVICES · CLOUD</span>
             </div>
             <p class="hello">
-              你好，我是 <span data-field="name">十月</span
-              ><span class="english-name">
-                / <span data-field="englishName">Xander</span></span
-              >
+              你好，我是 <span data-field="name">Xander</span
+              ><span class="wave" aria-hidden="true">↳</span>
             </p>
-            <h1 id="hero-heading">把想法写成<br /><em>可靠的产品。</em></h1>
+            <h1 id="hero-heading">
+              从设备到云端，<br /><em>构建完整产品。</em>
+            </h1>
             <p class="hero-intro" data-field="intro">
-              关注软件与真实场景之间的连接。这里记录我的工作、项目，以及解决问题的方式。
+              我是 Xander，一名偏系统方向的全栈工程师，负责复杂机器人与消费级
+              Linux 产品的软件架构设计和代码实现。
             </p>
             <div class="hero-actions">
-              <a class="button primary" href="#projects"
-                >看看我的项目<svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M4 12h16m-6-6 6 6-6 6" /></svg></a
-              ><a class="button secondary" href="#contact"
-                >联系我 <span aria-hidden="true">↗</span></a
+              <a
+                class="button primary github-link"
+                href="https://github.com/coder-xander"
+                target="_blank"
+                rel="noopener noreferrer"
+                >访问 GitHub
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m7 17 10-10M7 7h10v10" /></svg></a
+              ><a class="text-link" href="#focus"
+                >了解我的方向 <span aria-hidden="true">↓</span></a
               >
             </div>
             <div class="hero-meta">
-              <span
-                ><svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
-                  <circle cx="12" cy="10" r="2" /></svg
-                ><span data-field="location">所在城市待填写</span></span
-              ><span
-                ><svg viewBox="0 0 24 24" aria-hidden="true">
-                  <rect x="4" y="7" width="16" height="14" rx="2" />
-                  <path d="M9 7V3h6v4M4 12h16m-9 0v3h2v-3" /></svg
-                ><span data-field="role">软件工程师</span></span
-              >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
+                <circle cx="12" cy="10" r="2" /></svg
+              ><span data-field="location">上海，中国</span
+              ><span class="meta-divider" aria-hidden="true">/</span
+              ><span data-field="handle">coder-xander</span>
             </div>
           </div>
           <div class="hero-art" aria-hidden="true">
-            <div class="art-label mono">
-              <span>IDEA → BUILD → SHIP</span><span>01 / 03</span>
+            <div class="art-top mono">
+              <span>ARCHITECTURE × IMPLEMENTATION</span><span>↗</span>
             </div>
-            <div class="art-grid">
+            <div class="art-canvas">
+              <span class="cross cross-top">+</span
+              ><span class="cross cross-bottom">+</span>
               <div class="orbit orbit-one"></div>
               <div class="orbit orbit-two"></div>
-              <span class="cross cross-one">+</span
-              ><span class="cross cross-two">+</span>
-              <div class="floating-tag tag-top">
-                <span class="status-dot"></span>building things
-              </div>
+              <div class="art-line line-top"></div>
+              <div class="art-line line-bottom"></div>
               <div class="stack stack-back"></div>
               <div class="stack stack-middle"></div>
               <div class="code-object">
@@ -158,155 +108,117 @@
                 <div class="code-symbol">&lt;<span>/</span>&gt;</div>
                 <div class="code-lines"><i></i><i></i><i></i></div>
               </div>
-              <div class="floating-tag tag-bottom">
-                <span class="tag-icon">↳</span>从一个想法开始
+              <span class="floating-tag device-tag">01 / DEVICE</span
+              ><span class="floating-tag cloud-tag">02 / CLOUD</span
+              ><span class="floating-tag app-tag">03 / APP</span>
+            </div>
+            <div class="art-bottom">
+              <span class="mono">CONNECT THE PIECES.</span
+              ><span class="small-signal"><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+        </section>
+        <section class="about-band" aria-label="开发范围">
+          <div class="about-text">
+            <span class="section-kicker mono">END TO END</span>
+            <p data-field="about">
+              开发范围覆盖设备端、云端、桌面与移动客户端、标定和产线工具、设备初始化、OTA
+              以及量产软件流程。
+            </p>
+          </div>
+          <ol class="stack-path" id="stack-path" aria-label="开发技术链路">
+            <li>Bootloader</li>
+            <li>Linux</li>
+            <li>设备服务</li>
+            <li>云端</li>
+            <li>客户端</li>
+            <li>AI agents</li>
+          </ol>
+        </section>
+        <section
+          class="focus-section"
+          id="focus"
+          aria-labelledby="focus-heading"
+        >
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker mono">WHAT I WORK WITH</p>
+              <h2 id="focus-heading">技术方向<span>.</span></h2>
+            </div>
+            <span class="section-caption">架构设计，也写代码。</span>
+          </div>
+          <div class="focus-grid" id="focus-grid">
+            <article class="focus-card">
+              <span class="focus-number mono">01 / DEVICE</span>
+              <h3>机器人与 Linux 设备</h3>
+              <p>
+                传感器与子系统设计，摄像头、IMU、音频集成，以及设备服务和时间同步。
+              </p>
+              <div class="tags">
+                <span>C++20</span><span>ROS Noetic</span><span>Linux</span
+                ><span>V4L2 / ALSA</span>
               </div>
-            </div>
-            <div class="art-footer mono">
-              <span>CRAFTED WITH INTENTION</span
-              ><span class="art-coordinate">[ X, Y, Z ]</span>
-            </div>
+            </article>
+            <article class="focus-card">
+              <span class="focus-number mono">02 / CLOUD</span>
+              <h3>后端与设备云</h3>
+              <p>
+                并发服务、设备生命周期、远程诊断和 OTA 编排，连接设备与云端。
+              </p>
+              <div class="tags">
+                <span>Go</span><span>MQTT</span><span>gRPC</span
+                ><span>PostgreSQL</span>
+              </div>
+            </article>
+            <article class="focus-card">
+              <span class="focus-number mono">03 / CLIENT</span>
+              <h3>客户端与产线工具</h3>
+              <p>
+                桌面与移动客户端、标定工作站、烧录和设备初始化工具，以及量产软件流程。
+              </p>
+              <div class="tags">
+                <span>TypeScript</span><span>Vue / React</span
+                ><span>Electron</span><span>Tauri / Rust</span>
+              </div>
+            </article>
+            <article class="focus-card">
+              <span class="focus-number mono">04 / INTELLIGENCE</span>
+              <h3>AI 与工程交付</h3>
+              <p>
+                AI
+                agent、检索与多智能体流程，以及交叉编译、打包、部署和问题排查。
+              </p>
+              <div class="tags">
+                <span>MCP</span><span>ADK Go</span><span>RAG</span
+                ><span>Docker</span>
+              </div>
+            </article>
           </div>
         </section>
-        <div class="about-strip">
-          <p data-field="about">
-            我喜欢从具体问题出发，把需求拆成可以实现、验证和维护的工作。
-          </p>
-          <div class="focus-list" id="focus-list"></div>
-        </div>
-        <section
-          class="section"
-          id="experience"
-          aria-labelledby="experience-heading"
-        >
-          <div class="section-heading">
-            <div>
-              <p class="section-kicker mono">02 / EXPERIENCE</p>
-              <h2 id="experience-heading">
-                一步一步，积累经验<span class="heading-dot">.</span>
-              </h2>
-            </div>
-            <span class="section-aside">工作经历</span>
-          </div>
-          <p class="demo-note">以下为示例结构，请替换为真实经历。</p>
-          <div class="timeline" id="experience-list"></div>
-        </section>
-        <section
-          class="section"
-          id="projects"
-          aria-labelledby="projects-heading"
-        >
-          <div class="section-heading">
-            <div>
-              <p class="section-kicker mono">03 / SELECTED WORK</p>
-              <h2 id="projects-heading">
-                做过的事，写下的代码<span class="heading-dot">.</span>
-              </h2>
-            </div>
-            <a
-              class="quiet-link"
-              href="https://gitee.com/oct1231"
-              id="projects-gitee"
-              target="_blank"
-              rel="noopener noreferrer"
-              >我的 Gitee <span aria-hidden="true">↗</span></a
-            >
-          </div>
-          <p class="demo-note">项目内容为示例，不代表已完成的项目。</p>
-          <div class="project-grid" id="project-list"></div>
-        </section>
-        <section class="section" id="skills" aria-labelledby="skills-heading">
-          <div class="section-heading">
-            <div>
-              <p class="section-kicker mono">04 / TOOLBOX</p>
-              <h2 id="skills-heading">
-                我的技术工具箱<span class="heading-dot">.</span>
-              </h2>
-            </div>
-            <span class="section-aside">技能与教育</span>
-          </div>
-          <p class="demo-note">技能与教育信息为示例，请按实际情况填写。</p>
-          <div class="skills-grid" id="skills-list"></div>
-          <div class="education">
-            <div class="education-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path
-                  d="m2 9 10-5 10 5-10 5-10-5Zm4 2v6c4 3 8 3 12 0v-6m4-2v8"
-                />
-              </svg>
-            </div>
-            <div>
-              <span class="mono education-label">EDUCATION</span>
-              <h3 id="education-school">学校名称</h3>
-              <p id="education-major">专业 · 学历</p>
-            </div>
-            <span id="education-date">入学年份 — 毕业年份</span>
-          </div>
-        </section>
-        <section
-          class="contact-section"
-          id="contact"
-          aria-labelledby="contact-heading"
-        >
+        <section class="signature-band" aria-label="个人签名">
           <div>
-            <p class="section-kicker mono">05 / LET’S CONNECT</p>
-            <h2 id="contact-heading">从一次交流开始<span>.</span></h2>
-            <p>关于工作、项目，或一个值得讨论的想法。</p>
-            <span class="contact-email" id="contact-email">邮箱待填写</span>
+            <p class="mono" data-field="bio">Ultimate Glue Code Engineer</p>
+            <p class="signature" data-field="signature">超级无敌调包大王</p>
           </div>
-          <button
-            class="contact-trigger contact-arrow"
-            aria-label="通过邮箱联系"
-            type="button"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="m6 18 12-12M6 6h12v12" />
-            </svg>
-          </button>
+          <a
+            class="github-link signature-link"
+            href="https://github.com/coder-xander"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><span>@<span data-field="handle">coder-xander</span></span
+            ><svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m7 17 10-10M7 7h10v10" /></svg
+          ></a>
         </section>
-        <noscript
-          ><p class="noscript-note">
-            完整简历需要启用 JavaScript。你也可以直接访问
-            <a href="https://gitee.com/oct1231">Gitee 主页</a>。
-          </p></noscript
-        >
       </main>
       <footer class="footer">
-        <a href="#about"
-          ><span data-field="englishName">Xander</span
-          ><span class="footer-dot">.</span></a
-        ><span>认真做事，也认真生活。</span
-        ><a href="#about" class="back-top"
-          >回到顶部 <span aria-hidden="true">↑</span></a
-        >
+        <span
+          ><span data-field="name">Xander</span
+          ><span class="footer-dot">.</span></span
+        ><span class="mono" data-field="motto"
+          >ship · measure · debug · repeat</span
+        ><a href="#about">回到顶部 <span aria-hidden="true">↑</span></a>
       </footer>
     </div>
-    <dialog id="detail-dialog" aria-labelledby="dialog-title">
-      <div class="dialog-top">
-        <span class="mono" id="dialog-kicker">PROJECT NOTES</span
-        ><button
-          class="icon-button"
-          id="dialog-close"
-          type="button"
-          aria-label="关闭弹窗"
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="m6 6 12 12M6 18 18 6" />
-          </svg>
-        </button>
-      </div>
-      <h2 id="dialog-title"></h2>
-      <p id="dialog-description"></p>
-      <a
-        class="button primary"
-        id="dialog-link"
-        hidden
-        target="_blank"
-        rel="noopener noreferrer"
-        >查看项目 <span aria-hidden="true">↗</span></a
-      ><button class="button secondary" id="dialog-ok" type="button">
-        知道了
-      </button>
-    </dialog>
   </body>
 </html>

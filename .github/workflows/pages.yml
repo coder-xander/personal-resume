@@ -1,4 +1,4 @@
-name: Deploy resume to GitHub Pages
+name: Deploy personal page to GitHub Pages
 
 on:
   push:
@@ -24,14 +24,14 @@ jobs:
       - name: Validate website files
         run: |
           node --check app.js
-          node --check resume.js
+          node --check profile.js
           python3 scripts/validate-site.py
       - name: Configure Pages
         uses: actions/configure-pages@v6
       - name: Prepare website
         run: |
           mkdir -p _site
-          cp index.html style.css app.js resume.js favicon.svg .nojekyll _site/
+          cp index.html style.css app.js profile.js favicon.svg .nojekyll _site/
       - name: Upload website
         uses: actions/upload-pages-artifact@v5
         with:

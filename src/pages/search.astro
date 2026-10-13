@@ -1,0 +1,6 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SearchPanel from '../components/SearchPanel.astro';
+import { base } from '../data/site';
+---
+<Layout title="搜索项目 · Xander" description="搜索 Xander 的 Ropedia 项目经验、技术栈和工程问题。"><main id="main" class="container search-page"><a href={base} class="breadcrumb">主页 / 搜索</a><p class="eyebrow mono">// SEARCH THE WORK</p><h1>找到一个项目，<br/>也找到一个<span>问题的解法。</span></h1><p class="search-page-intro">支持项目名称、中文描述和技术关键词。试试 OTA、相机、标定或 WebRTC。</p><SearchPanel expanded /><a href={`${base}#projects`} class="text-link">浏览全部项目 ↗</a></main></Layout>

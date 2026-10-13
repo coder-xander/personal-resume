@@ -1,29 +1,81 @@
-# Xander 的个人主页
+# Xander 的工程项目主页
 
-简单的个人介绍页面，包含介绍、技术方向、个人签名和 GitHub 链接。内容来自 [GitHub Profile](https://github.com/coder-xander) 和 [Profile README](https://github.com/coder-xander/coder-xander/blob/main/README.md)，于 2026 年 10 月 13 日核对。页面暂不展示项目、工作经历或教育信息。
+使用 Astro、Markdown 和 Pagefind，展示 Ropedia 的工程经历与 xanderPool 个人开源项目。
 
-访问：[个人主页](https://coder-xander.github.io/personal-resume/)。
+- [访问主页](https://coder-xander.github.io/personal-resume/)
+- [搜索项目](https://coder-xander.github.io/personal-resume/search/)
 
-## 修改内容
+主页包含项目索引、按工程方向筛选和全文搜索。每个项目有独立详情页，说明背景、职责、关键实现和交付情况。视觉参考 Ropedia 官网的黑底、浅绿色、网格与编号排版，保留个人主页品牌和浅色主题。
 
-编辑 `profile.js` 中的 `window.PROFILE`，可以修改介绍、技术方向、个人签名和链接。`index.html` 保留了相同内容作为不启用 JavaScript 时的默认展示。更新个人资料时，也应同步修改 HTML 中的默认文字、标题和描述。
+## 内容结构
 
-`style.css` 提供响应式布局、浅色、深色和打印样式。`app.js` 渲染配置文件并保存主题选择。所有样式、脚本和图标均在站点本地，不加载第三方字体或 CDN 脚本。图示由 CSS 绘制。
+`src/content/projects/` 下每个 Markdown 文件对应一个项目。当前有 15 篇，覆盖系统与固件、设备与数据、连接协议、云端、客户端、产线标定、AI 和个人开源。
 
-## 本地预览
+`src/content.config.ts` 校验标题、摘要、分类、职责、技术栈和架构步骤。首页卡片、项目路径、详情页目录和搜索索引均由内容生成。
 
-直接用 Chrome 打开 `index.html`，或在仓库目录运行：
+正文按项目资料与提交记录整理，个人贡献、团队协作、第三方集成和验证范围分别说明。Ropedia 项目和个人开源项目使用不同归属标签。
+
+## 本地开发
+
+需要 Node.js 22.12 及以上，推荐与工作流一致的 Node.js 24。
 
 ```sh
-python3 -m http.server 4173 --bind 127.0.0.1
+npm ci
+npm run dev
 ```
 
-然后访问 `http://127.0.0.1:4173/`。无需安装依赖或构建。
+开发地址包含 `/personal-resume/` 前缀。Pagefind 索引在构建后生成，完整搜索应使用生产预览：
+
+```sh
+npm run check
+npm run build
+npm run validate
+npm run test:search
+npm run preview
+```
+
+`check` 检查 Astro 与 TypeScript。`build` 生成静态页面和中文搜索索引。`validate` 检查页面内部链接、锚点、静态资源和索引条目。`test:search` 使用实际构建索引核对中文、英文、空结果和子目录路径。`preview` 提供构建产物预览。
+
+## 修改与新增项目
+
+直接编辑 `src/content/projects/` 中的 Markdown。文件名决定项目地址，`order` 决定首页和相邻项目顺序。`category` 使用 `src/data/site.ts` 中已有的分类 ID。
+
+每篇内容需要以下 frontmatter 字段：
+
+| 字段           | 内容                                  |
+| -------------- | ------------------------------------- |
+| `title`        | 项目标题                              |
+| `summary`      | 首页卡片与页面描述                    |
+| `category`     | 工程方向 ID                           |
+| `order`        | 排序数字                              |
+| `role`         | 个人负责的部分                        |
+| `technologies` | 技术名称数组                          |
+| `pipeline`     | 架构或流程步骤数组                    |
+| `context`      | 可选的项目归属，默认 Ropedia 项目实践 |
+| `repository`   | 可选的公开源码地址                    |
+
+正文的二级标题自动进入详情页目录。项目间链接使用相对地址，例如 `../device-core/`。站点介绍和分类定义在 `src/data/site.ts`，样式在 `src/styles/global.css`。
+
+## 搜索
+
+Pagefind 在构建阶段索引项目正文，按页面语言启用中文分词。主页和搜索页支持项目名称、中文描述和英文技术词。项目标题、摘要和标签还提供原词匹配，补充中文复合词分词差异，例如“线程池”。两类结果合并并去重，完整项目名优先。
+
+搜索在访问者浏览器中运行，不需要后端服务。主页和搜索页可用 Ctrl/Cmd + K 聚焦搜索框，Esc 清空搜索。
+
+搜索结果路径配置了 GitHub Pages 的子目录前缀。页头、页脚、目录与主页重复摘要不进入项目全文索引。页面脚本、搜索索引与字体均随网站发布，不依赖外部字体或脚本 CDN。
 
 ## 自动发布
 
-推送到 `main` 会触发 `.github/workflows/pages.yml`。工作流先检查 JavaScript 语法、资源文件和页面锚点，再部署到 GitHub Pages。也支持在 Actions 页面手动运行。
+推送到 `main` 会触发 `.github/workflows/pages.yml`：安装锁定依赖，运行类型检查，构建页面与搜索索引，验证生成链接和搜索，再发布 `dist/` 到 GitHub Pages。也支持手动运行。
 
-仓库的 Settings → Pages → Source 使用 GitHub Actions。网站产物只包含 `index.html`、`style.css`、`app.js`、`profile.js`、`favicon.svg` 和 `.nojekyll`，不包含 README、验证脚本或 Git 元数据。
+仓库 Settings → Pages → Source 使用 GitHub Actions。部署前缀和站点地址在 `astro.config.mjs` 中配置。
 
-[GitHub Pages 工作流说明](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)
+## 框架选择
+
+Astro 的内容集合适合让项目经历各自保存在 Markdown 文件中，同时保留自定义主页和详情页设计。Pagefind 为构建后的静态页面提供中文全文搜索。VitePress 也支持 Markdown 和本地搜索，但默认主题偏技术文档，因此这里使用 Astro 组织作品展示。
+
+- [Astro 内容集合](https://docs.astro.build/en/guides/content-collections/)
+- [Astro 与 GitHub Pages](https://docs.astro.build/en/guides/deploy/github/)
+- [Pagefind 多语言搜索](https://pagefind.app/docs/multilingual/)
+- [Pagefind 搜索 API](https://pagefind.app/docs/api/)
+- [Ropedia 官网](https://ropedia.com/)

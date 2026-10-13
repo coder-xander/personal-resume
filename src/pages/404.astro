@@ -1,0 +1,5 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { base } from '../data/site';
+---
+<Layout title="页面未找到 · Xander"><main id="main" class="container not-found"><p class="eyebrow mono">404 / PAGE NOT FOUND</p><h1>这页暂时不存在<span>.</span></h1><p>可以回到项目索引，或搜索你想了解的内容。</p><a href={base} class="button">返回主页 ↗</a><a href={`${base}search/`} class="text-link">搜索项目</a></main></Layout>

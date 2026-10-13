@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import SearchPanel from '../components/SearchPanel.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { categories, site } from '../data/site';
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const layers = [
+  { en: 'SYSTEM', title: '启动与系统', sub: 'Linux / U-Boot / BSP', anchor: 'system' },
+  { en: 'DEVICE', title: '采集与设备服务', sub: 'C++ / Go / Zenoh', anchor: 'device' },
+  { en: 'CLOUD', title: '设备云与运维', sub: 'MQTT / PostgreSQL / OTA', anchor: 'cloud' },
+  { en: 'APPLICATION', title: '桌面与移动端', sub: 'Wails / React / Expo', anchor: 'client' },
+  { en: 'FACTORY', title: '产线与标定', sub: 'Electron / Tauri / Airflow', anchor: 'factory' },
+  { en: 'INTELLIGENCE', title: '本地 AI 与工具编排', sub: 'ONNX / Grounding DINO / MCP', anchor: 'ai' },
+];
+---
+<Layout>
+  <main id="main" class="home-main">
+    <section class="hero-section container" id="about" aria-labelledby="hero-heading">
+      <div class="hero-content"><p class="eyebrow mono"><span class="signal-dot"></span> XANDER / SYSTEMS-MINDED ENGINEER</p><h1 id="hero-heading">从底层系统，<br/>到<span>完整产品。</span></h1><p class="hero-intro">{site.intro}</p><div class="hero-meta"><span>{site.location}</span><span>架构设计 × 代码实现</span></div><SearchPanel /><a class="hero-explore mono" href="#projects">EXPLORE THE WORK <span aria-hidden="true">↓</span></a></div>
+      <div class="stack-atlas" aria-label="从系统到应用的工程层级"><div class="atlas-heading mono"><span>THE ENGINEERING STACK</span><span class="atlas-cross">+</span></div><div class="atlas-grid">{layers.map((layer, index) => <a class="atlas-layer" href="#projects" data-layer={layer.anchor}><span class="layer-index mono">0{index + 1}</span><div><span class="layer-name">{layer.title}</span><span class="layer-tech mono">{layer.sub}</span></div><span class="layer-connector" aria-hidden="true">↗</span></a>)}</div><div class="atlas-footer mono"><span>HARDWARE → DATA → EXPERIENCE</span><span class="atlas-signal" aria-hidden="true">▂ ▃ ▅ ▇</span></div></div>
+    </section>
+    <section class="scope-strip" aria-label="项目范围"><div class="container scope-inner"><p class="mono">ROPEDIA × PERSONAL WORK</p><span>{projects.length} 个项目主题</span><span>{categories.length} 个工程方向</span><p>每个项目都说明问题、工作与工程取舍。</p></div></section>
+    <section class="projects-section container" id="projects" aria-labelledby="projects-heading"><div class="section-heading"><div><p class="eyebrow mono">// PROJECT INDEX</p><h2 id="projects-heading">逐层展开，逐项说明<span>.</span></h2></div><p class="section-note">从设备启动到数据采集，<br/>从工程工具到用户应用。</p></div><div class="project-controls"><div class="category-filters" role="group" aria-label="按技术层级筛选"><button type="button" data-category-filter="all" class="active" aria-pressed="true">全部 <span>{projects.length}</span></button>{categories.map((category) => <button type="button" data-category-filter={category.id} aria-pressed="false">{category.title}</button>)}</div><p class="project-count mono" aria-live="polite"><span id="project-count">{projects.length}</span> PROJECTS</p></div><div class="project-grid">{projects.map((project) => <ProjectCard project={project} />)}</div></section>
+    <section class="about-section container" aria-labelledby="working-heading"><div class="about-heading"><p class="eyebrow mono">// HOW I WORK</p><h2 id="working-heading">把各个环节<br/>连接起来<span>.</span></h2></div><div class="about-detail"><p>我关注接口、状态和数据在不同层之间如何衔接：采集数据如何保存，设备状态如何上报，客户端操作如何生效，产线结果如何进入设备档案。</p><p>项目介绍按照实际工作整理。涉及厂商 BSP、模型或团队业务时，分别说明适配、集成与协作范围；包交付、自动化检查和实机验证也各自说明。</p><a href={site.github} target="_blank" rel="noopener noreferrer" class="text-link">GitHub / @{site.handle}<span aria-hidden="true">↗</span></a></div></section>
+  </main>
+</Layout>
+<script>
+  const cards = [...document.querySelectorAll<HTMLElement>('[data-project-card]')];
+  const filters = [...document.querySelectorAll<HTMLButtonElement>('[data-category-filter]')];
+  function filterProjects(category: string) {
+    let count = 0;
+    cards.forEach((card) => { const show = category === 'all' || card.dataset.category === category; card.hidden = !show; if (show) count++; });
+    filters.forEach((button) => { const active = button.dataset.categoryFilter === category; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)); });
+    document.querySelector('#project-count')!.textContent = String(count);
+  }
+  filters.forEach((button) => button.addEventListener('click', () => filterProjects(button.dataset.categoryFilter!)));
+  document.querySelectorAll<HTMLElement>('[data-layer]').forEach((link) => link.addEventListener('click', () => filterProjects(link.dataset.layer!)));
+</script>

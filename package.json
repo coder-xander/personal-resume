@@ -1,0 +1,27 @@
+{
+  "name": "xander-engineering-portfolio",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "check": "astro check",
+    "build": "astro build && pagefind --site dist",
+    "preview": "astro preview --host 127.0.0.1",
+    "validate": "python3 scripts/validate-build.py",
+    "test:search": "node --experimental-strip-types scripts/verify-search.mjs"
+  },
+  "dependencies": {
+    "astro": "7.3.8",
+    "@fontsource-variable/inter-tight": "5.3.0",
+    "@fontsource/jetbrains-mono": "5.3.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "pagefind": "1.5.2",
+    "typescript": "^6.0.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

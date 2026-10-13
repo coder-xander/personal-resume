@@ -1,4 +1,4 @@
-name: Deploy personal page to GitHub Pages
+name: Build and deploy engineering portfolio
 
 on:
   push:
@@ -21,21 +21,31 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v7
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
       - name: Validate website files
-        run: |
-          node --check app.js
-          node --check profile.js
-          python3 scripts/validate-site.py
+        run: npm run check
+        env:
+          ASTRO_TELEMETRY_DISABLED: "1"
       - name: Configure Pages
         uses: actions/configure-pages@v6
-      - name: Prepare website
-        run: |
-          mkdir -p _site
-          cp index.html style.css app.js profile.js favicon.svg .nojekyll _site/
+      - name: Build pages and search index
+        run: npm run build
+        env:
+          ASTRO_TELEMETRY_DISABLED: "1"
+      - name: Validate generated links and search entries
+        run: npm run validate
+      - name: Verify Chinese and English search
+        run: npm run test:search
       - name: Upload website
         uses: actions/upload-pages-artifact@v5
         with:
-          path: _site
+          path: dist
           include-hidden-files: true
 
   deploy:

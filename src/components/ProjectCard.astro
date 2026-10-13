@@ -1,0 +1,15 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { categoryInfo, projectUrl } from '../data/site';
+interface Props { project: CollectionEntry<'projects'>; }
+const { project } = Astro.props;
+const category = categoryInfo(project.data.category);
+---
+<article class="project-card" data-project-card data-category={project.data.category}>
+  <a href={projectUrl(project.id)} class="project-card-link">
+    <div class="card-top mono"><span>{category.en} // {String(project.data.order).padStart(2, '0')}</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+    <h3>{project.data.title}</h3>
+    <p>{project.data.summary}</p>
+    <div class="card-bottom"><span class="project-role">{project.data.role}</span><div class="tag-list">{project.data.technologies.slice(0, 4).map((tag) => <span>{tag}</span>)}</div></div>
+  </a>
+</article>

@@ -1,0 +1,87 @@
+---
+import { base } from '../data/site';
+interface Props { expanded?: boolean; }
+const { expanded = false } = Astro.props;
+---
+<div class:list={['search-panel', { 'search-expanded': expanded }]} data-search-panel data-base={base} data-pagefind-ignore>
+  <form class="search-form" role="search" action={`${base}search/`} method="get">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+    <label class="sr-only" for="project-search">搜索项目、技术或工程问题</label>
+    <input id="project-search" type="search" name="q" autocomplete="off" placeholder="搜索项目、技术或工程问题…" aria-controls="search-results" aria-describedby="search-status" />
+    <button type="submit" aria-label="搜索">搜索 <span aria-hidden="true">↗</span></button>
+  </form>
+  <div class="search-hints"><span class="mono">TRY</span>{['OTA', 'Zenoh', '标定', 'Windows', 'Grounding DINO'].map((term) => <button type="button" data-search-term={term}>{term}</button>)}</div>
+  <div class="search-status" id="search-status" role="status" aria-live="polite"></div>
+  <div class="search-results" id="search-results" hidden></div>
+  <noscript><p class="search-noscript">全文搜索需要 JavaScript。你也可以从<a href={`${base}#projects`}>项目索引</a>浏览全部内容。</p></noscript>
+</div>
+<script>
+  import { mergeSearchResults, type CatalogEntry } from '../lib/search';
+  const panel = document.querySelector<HTMLElement>('[data-search-panel]');
+  if (panel) {
+    const input = panel.querySelector<HTMLInputElement>('input')!;
+    const results = panel.querySelector<HTMLElement>('.search-results')!;
+    const status = panel.querySelector<HTMLElement>('.search-status')!;
+    const basePath = panel.dataset.base!;
+    interface SearchResultData { url: string; meta: { title?: string; category?: string }; excerpt: string; }
+    interface Pagefind { init: () => void; options: (options: {baseUrl: string}) => Promise<void>; debouncedSearch: (term: string) => Promise<{ results: {data: () => Promise<SearchResultData>}[] } | null>; }
+    let enginePromise: Promise<Pagefind> | undefined;
+    let catalogPromise: Promise<CatalogEntry[]> | undefined;
+    const loadCatalog = () => catalogPromise ??= fetch(`${basePath}search-catalog.json`).then((response) => { if (!response.ok) throw new Error('Catalog unavailable'); return response.json() as Promise<CatalogEntry[]>; }).catch(() => { catalogPromise = undefined; return []; });
+    const loadEngine = (): Promise<Pagefind> => {
+      if (!enginePromise) enginePromise = import(/* @vite-ignore */ `${basePath}pagefind/pagefind.js`).then(async (module) => { const engine = module as Pagefind; await engine.options({baseUrl: basePath}); return engine; }).catch((error) => { enginePromise = undefined; throw error; });
+      return enginePromise;
+    };
+    let revision = 0;
+    const renderSearch = async () => {
+      const term = input.value.trim();
+      const current = ++revision;
+      if (!term) { status.textContent = ''; results.hidden = true; results.replaceChildren(); results.removeAttribute('aria-busy'); return; }
+      status.textContent = '正在搜索…';
+      results.setAttribute('aria-busy', 'true');
+      try {
+        const [engine, catalog] = await Promise.all([loadEngine(), loadCatalog()]);
+        const found = await engine.debouncedSearch(term);
+        if (!found || revision !== current) return;
+        const fullTextItems = await Promise.all(found.results.slice(0, 30).map((result) => result.data()));
+        const matched = mergeSearchResults(term, fullTextItems, catalog);
+        const items = matched.slice(0, 12);
+        if (revision !== current) return;
+        results.replaceChildren();
+        status.textContent = matched.length ? `找到 ${matched.length} 项内容${matched.length > 12 ? '，显示前 12 项' : ''}` : '没有找到相关内容，可以换一个关键词。';
+        for (const item of items) {
+          const link = document.createElement('a');
+          link.className = 'search-result';
+          const destination = new URL(item.url, window.location.origin);
+          if (destination.origin !== window.location.origin || !destination.pathname.startsWith(basePath)) continue;
+          link.href = destination.href;
+          const heading = document.createElement('h3');
+          heading.textContent = item.meta.title || '项目详情';
+          const category = document.createElement('span');
+          category.className = 'mono';
+          category.textContent = item.meta.category || '工程项目';
+          const excerpt = document.createElement('p');
+          if (item.summary) excerpt.textContent = item.summary;
+          else excerpt.innerHTML = item.excerpt || '';
+          link.append(category, heading, excerpt);
+          results.append(link);
+        }
+        results.hidden = !items.length;
+      } catch {
+        if (revision !== current) return;
+        status.textContent = '搜索暂时无法加载，请刷新重试，或从项目索引浏览。';
+        results.hidden = true;
+      } finally { if (revision === current) results.removeAttribute('aria-busy'); }
+    };
+    input.addEventListener('input', renderSearch);
+    input.addEventListener('focus', () => { loadEngine().then((engine) => engine.init()).catch(() => {}); }, { once: true });
+    panel.querySelector('form')!.addEventListener('submit', (event) => { event.preventDefault(); void renderSearch(); });
+    panel.querySelectorAll<HTMLButtonElement>('[data-search-term]').forEach((button) => button.addEventListener('click', () => { input.value = button.dataset.searchTerm!; input.focus(); void renderSearch(); }));
+    const initialTerm = new URLSearchParams(window.location.search).get('q');
+    if (initialTerm) { input.value = initialTerm; void renderSearch(); }
+    document.addEventListener('keydown', (event) => {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); input.scrollIntoView({ block: 'center' }); input.focus(); }
+      if (event.key === 'Escape' && document.activeElement === input) { input.value = ''; void renderSearch(); input.blur(); }
+    });
+  }
+</script>

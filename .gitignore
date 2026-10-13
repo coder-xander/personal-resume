@@ -1,4 +1,7 @@
 _site/
+dist/
+node_modules/
+.astro/
 .DS_Store
 *.zip
 __pycache__/

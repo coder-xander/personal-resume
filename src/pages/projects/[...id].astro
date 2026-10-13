@@ -1,0 +1,24 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { base, categoryInfo, projectUrl } from '../../data/site';
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+  return projects.map((project, index) => ({ params: { id: project.id }, props: { project, previous: projects[index - 1], next: projects[index + 1] } }));
+}
+const { project, previous, next } = Astro.props;
+const { Content, headings } = await render(project);
+const category = categoryInfo(project.data.category);
+const toc = headings.filter((heading) => heading.depth === 2);
+---
+<Layout title={`${project.data.title} · Xander`} description={project.data.summary}>
+  <main id="main" class="project-page container">
+    <nav class="breadcrumb" aria-label="面包屑"><a href={base}>主页</a><span>/</span><a href={`${base}#projects`}>项目经验</a><span>/</span><span>{category.title}</span></nav>
+    <article data-pagefind-body>
+      <header class="project-hero"><p class="eyebrow mono" data-pagefind-meta="category">{category.title} / {category.en} // {String(project.data.order).padStart(2,'0')}</p><h1 data-pagefind-meta="title">{project.data.title}</h1><p class="project-summary">{project.data.summary}</p><div class="project-meta"><span>{project.data.role}</span><span>{project.data.context}</span></div><div class="tag-list project-tags">{project.data.technologies.map((tag) => <span>{tag}</span>)}</div>{project.data.repository && <a class="text-link" href={project.data.repository} target="_blank" rel="noopener noreferrer">查看项目源码 <span aria-hidden="true">↗</span></a>}</header>
+      <div class="pipeline-panel"><span class="mono">WORKFLOW / ARCHITECTURE</span><ol>{project.data.pipeline.map((step) => <li>{step}</li>)}</ol></div>
+      <div class="article-layout"><div class="prose"><Content /></div><aside class="article-toc" data-pagefind-ignore><span class="mono">ON THIS PAGE</span><nav aria-label="本文目录">{toc.map((heading) => <a href={`#${heading.slug}`}>{heading.text}</a>)}</nav><a class="toc-index" href={`${base}#projects`}>← 返回项目索引</a></aside></div>
+    </article>
+    <nav class="project-pagination" aria-label="相邻项目">{previous ? <a href={projectUrl(previous.id)}><span class="mono">← PREVIOUS</span><strong>{previous.data.title}</strong></a> : <span></span>}{next ? <a href={projectUrl(next.id)}><span class="mono">NEXT →</span><strong>{next.data.title}</strong></a> : <a href={`${base}#projects`}><span class="mono">ALL PROJECTS ↗</span><strong>返回全部项目</strong></a>}</nav>
+  </main>
+</Layout>

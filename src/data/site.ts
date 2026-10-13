@@ -1,11 +1,11 @@
 export const site = {
   name: "Xander",
   handle: "coder-xander",
-  role: "偏系统方向的全栈工程师",
+  role: "系统架构与全栈工程师",
   location: "上海，中国",
   github: "https://github.com/coder-xander",
   intro:
-    "负责复杂机器人与消费级 Linux 产品的软件架构设计和代码实现。这里记录我在 Ropedia 从板级系统到云端、客户端与产线工具的项目实践，以及自己的 C++ 开源项目。",
+    "在 Ropedia 独立完成设备系统、采集服务、管理平台、客户端与产线工具的整体架构设计和实现。从硬件接口、数据链路到产品交互，我负责把各层组织成可运行、可维护、可交付的完整系统。",
 };
 
 export const categories = [
@@ -44,7 +44,7 @@ export const categories = [
     id: "ai",
     title: "AI 工程",
     en: "INTELLIGENCE",
-    note: "模型运行与工具编排",
+    note: "Vera Agent 与本地物体检测",
   },
   {
     id: "opensource",

@@ -3,7 +3,7 @@ title: "Device Core 与共享采集架构"
 summary: "统一设备控制入口，将采集、录制和预览拆分，通过 Zenoh 共享同一数据源并分别管理生命周期。"
 category: device
 order: 3
-role: "设备控制与数据架构演进"
+role: "独立设计与实现"
 technologies: ["Go", "C++20", "Zenoh", "Pion WebRTC", "JSON-RPC"]
 pipeline:
   ["统一控制入口", "Device Core", "Acquisition", "Zenoh", "Recorder / Preview"]
@@ -13,13 +13,17 @@ pipeline:
 
 录制、预览、云端控制、蓝牙和按键都可能改变设备状态。入口各自维护业务规则时，容易出现状态冲突；预览与录制共用进程时，客户端行为也可能影响本地保存。
 
-我参与设备软件架构演进，把业务控制集中到 Go Device Core，并拆分数据采集与消费。
+我独立设计并实现设备软件架构，将控制面集中到 Go Device Core，并将数据面拆成采集、录制与预览服务。
 
-## 我负责的部分
+## 架构设计与实现
 
 - 将 BLE、HTTP、MQTT 和按键接入同一业务核心，统一录制、网络、存储及硬件反馈状态。
 - 用 C++ Acquisition 负责采集与发布，Recorder 负责会话与落盘，Go Preview 通过 Pion WebRTC 输出实时画面。
 - 通过 Zenoh 让录制、预览和外部订阅共享数据源，同时管理采集需求、客户端租约、预热取消和录制就绪。
+
+## 架构思路
+
+控制面决定设备应该做什么，数据面负责数据如何流动。BLE、HTTP、MQTT 和按键经过同一业务核心，Acquisition 只负责采集与发布，Recorder 和 Preview 独立消费。用租约、有界队列和明确的服务生命周期隔离客户端行为与设备录制。
 
 ## 关键实现
 

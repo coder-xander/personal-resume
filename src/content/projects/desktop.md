@@ -3,7 +3,7 @@ title: "Ropedia Desktop"
 summary: "用 Go、Wails 与 React 组织设备连接、四路预览、传感器监看、电脑录制、MCAP 回放与 ROS 2 导出。"
 category: client
 order: 8
-role: "桌面应用开发与交付"
+role: "独立设计与实现"
 technologies: ["Go", "Wails", "React / TypeScript", "WebRTC", "MCAP / ROS 2"]
 pipeline:
   ["设备发现与连接", "WebRTC / Zenoh", "实时监看", "原始录制", "回放与导出"]
@@ -13,14 +13,18 @@ pipeline:
 
 上位机需要将设备连接、实时监看、采集控制与数据管理放在同一个应用中。USB、局域网、窗口切换和网络抖动，还会影响预览与控制状态。
 
-我负责 Ropedia Desktop 的开发与交付，当前应用采用 Go、Wails 和 React。
+我独立设计并实现 Ropedia Desktop，覆盖 Go 后端、Wails 桌面桥接、React 界面、实时数据处理与三平台交付。
 
-## 我负责的部分
+## 架构设计与实现
 
 - 统一 USB 与局域网连接流程，核对设备身份，管理状态轮询、健康检查和重新连接。
 - 接入四路 WebRTC 视频，通过 DataChannel 展示 IMU 与音频波形，分别组织设备采集和电脑录制。
 - 将原始 Zenoh 消息保存为 MCAP，提供时间回放以及 ROS 2 MCAP、SQLite3 bag 导出。
 - 维护 macOS、Windows 与 Linux 的平台包、原生依赖和校验信息。
+
+## 架构思路
+
+按设备连接、控制、实时预览、原始录制和离线导出划分模块。Go 后台持有连接与租约，前端负责交互和显示，原始数据保存独立于渲染与 AI 检测。窗口生命周期、网络恢复和录制状态分别管理。
 
 ## 关键实现
 

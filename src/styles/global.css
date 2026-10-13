@@ -1617,3 +1617,67 @@ h2 > span {
 [hidden] {
   display: none !important;
 }
+
+.architecture-section {
+  padding-block: 72px 24px;
+}
+.architecture-intro {
+  max-width: 850px;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.9;
+  margin: 28px 0 36px;
+}
+.architecture-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.architecture-card {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 180ms ease;
+}
+.architecture-card:hover,
+.architecture-card:focus-visible {
+  border-color: var(--accent);
+}
+.architecture-card > .mono {
+  color: var(--accent);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+}
+.architecture-card h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 22px 0 16px;
+}
+.architecture-card p {
+  color: var(--muted);
+  line-height: 1.85;
+  margin: 0 0 24px;
+}
+.architecture-destination {
+  color: var(--accent);
+  margin-top: auto;
+  font-size: 0.85rem;
+}
+@media (max-width: 600px) {
+  .architecture-section {
+    padding-top: 44px;
+  }
+  .architecture-grid {
+    grid-template-columns: 1fr;
+  }
+  .architecture-card {
+    padding: 22px;
+  }
+  .architecture-card h3 {
+    font-size: 1.25rem;
+  }
+}

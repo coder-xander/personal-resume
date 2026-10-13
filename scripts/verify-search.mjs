@@ -64,6 +64,8 @@ try {
     ["Zenoh", "device-core"],
     ["OTA", "firmware-ota"],
     ["Grounding DINO", "local-ai"],
+    ["Vera", "vera-agent"],
+    ["Agent", "vera-agent"],
     ["xanderPool", "xanderpool"],
     ["线程池", "xanderpool"],
     ["this-term-does-not-exist-7391", null],

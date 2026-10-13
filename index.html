@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="十月的个人简历模板：工作经历、项目与技术技能。"
+    />
+    <meta name="theme-color" content="#f7f8f5" />
+    <title>十月 / Xander · 个人简历</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./resume.js" defer></script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到正文</a>
+    <aside class="sidebar" aria-label="个人信息与导航">
+      <a class="brand" href="#about" aria-label="返回个人介绍"
+        ><span class="brand-mark" data-field="initials">X.</span
+        ><span class="brand-label"
+          >个人简历<span class="mono">PERSONAL RESUME</span></span
+        ></a
+      >
+      <button
+        class="menu-toggle icon-button"
+        type="button"
+        aria-label="打开导航"
+        aria-controls="navigation"
+        aria-expanded="false"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+      <div class="sidebar-body" id="navigation">
+        <div class="sidebar-profile">
+          <div class="avatar" aria-hidden="true" data-field="initials">X.</div>
+          <p class="profile-name" data-field="name">十月</p>
+          <p class="profile-role" data-field="role">软件工程师</p>
+        </div>
+        <nav class="nav">
+          <a class="active" aria-current="location" href="#about"
+            ><span>01</span>关于我<svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m7 17 10-10M7 7h10v10" /></svg></a
+          ><a href="#experience"><span>02</span>工作经历</a
+          ><a href="#projects"><span>03</span>项目精选</a
+          ><a href="#skills"><span>04</span>技能与教育</a
+          ><a href="#contact"><span>05</span>联系我</a>
+        </nav>
+        <div class="sidebar-bottom">
+          <span class="side-note">保持好奇。认真构建。</span>
+          <div class="social-row">
+            <a
+              id="gitee-link"
+              href="https://gitee.com/oct1231"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Gitee <span aria-hidden="true">↗</span></a
+            ><button class="contact-trigger" type="button">
+              Email <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+          <span class="mono side-version">RESUME / 01</span>
+        </div>
+      </div>
+    </aside>
+    <div class="page">
+      <header class="topbar">
+        <div class="breadcrumb">
+          <span>个人主页</span><span aria-hidden="true">/</span
+          ><strong>简历</strong>
+        </div>
+        <div class="top-actions">
+          <span class="template-tag" id="template-tag">模板预览</span
+          ><button
+            class="icon-button"
+            id="theme-toggle"
+            type="button"
+            aria-label="切换到深色模式"
+            aria-pressed="false"
+          >
+            <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M20 15.4A8.5 8.5 0 0 1 8.6 4 8.5 8.5 0 1 0 20 15.4Z"
+              /></svg
+            ><svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"
+              />
+            </svg></button
+          ><button class="print-button" id="print-button" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3v12m-4-4 4 4 4-4M5 16v5h14v-5" /></svg
+            ><span>导出 PDF</span>
+          </button>
+        </div>
+      </header>
+      <main id="main">
+        <section class="hero" id="about" aria-labelledby="hero-heading">
+          <div class="hero-copy">
+            <div class="eyebrow">
+              <span class="status-dot"></span
+              ><span data-field="status">个人简历 · 初版模板</span>
+            </div>
+            <p class="hello">
+              你好，我是 <span data-field="name">十月</span
+              ><span class="english-name">
+                / <span data-field="englishName">Xander</span></span
+              >
+            </p>
+            <h1 id="hero-heading">把想法写成<br /><em>可靠的产品。</em></h1>
+            <p class="hero-intro" data-field="intro">
+              关注软件与真实场景之间的连接。这里记录我的工作、项目，以及解决问题的方式。
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="#projects"
+                >看看我的项目<svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 12h16m-6-6 6 6-6 6" /></svg></a
+              ><a class="button secondary" href="#contact"
+                >联系我 <span aria-hidden="true">↗</span></a
+              >
+            </div>
+            <div class="hero-meta">
+              <span
+                ><svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
+                  <circle cx="12" cy="10" r="2" /></svg
+                ><span data-field="location">所在城市待填写</span></span
+              ><span
+                ><svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="4" y="7" width="16" height="14" rx="2" />
+                  <path d="M9 7V3h6v4M4 12h16m-9 0v3h2v-3" /></svg
+                ><span data-field="role">软件工程师</span></span
+              >
+            </div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="art-label mono">
+              <span>IDEA → BUILD → SHIP</span><span>01 / 03</span>
+            </div>
+            <div class="art-grid">
+              <div class="orbit orbit-one"></div>
+              <div class="orbit orbit-two"></div>
+              <span class="cross cross-one">+</span
+              ><span class="cross cross-two">+</span>
+              <div class="floating-tag tag-top">
+                <span class="status-dot"></span>building things
+              </div>
+              <div class="stack stack-back"></div>
+              <div class="stack stack-middle"></div>
+              <div class="code-object">
+                <div class="object-header">
+                  <span></span><span></span><span></span><i>hello.world</i>
+                </div>
+                <div class="code-symbol">&lt;<span>/</span>&gt;</div>
+                <div class="code-lines"><i></i><i></i><i></i></div>
+              </div>
+              <div class="floating-tag tag-bottom">
+                <span class="tag-icon">↳</span>从一个想法开始
+              </div>
+            </div>
+            <div class="art-footer mono">
+              <span>CRAFTED WITH INTENTION</span
+              ><span class="art-coordinate">[ X, Y, Z ]</span>
+            </div>
+          </div>
+        </section>
+        <div class="about-strip">
+          <p data-field="about">
+            我喜欢从具体问题出发，把需求拆成可以实现、验证和维护的工作。
+          </p>
+          <div class="focus-list" id="focus-list"></div>
+        </div>
+        <section
+          class="section"
+          id="experience"
+          aria-labelledby="experience-heading"
+        >
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker mono">02 / EXPERIENCE</p>
+              <h2 id="experience-heading">
+                一步一步，积累经验<span class="heading-dot">.</span>
+              </h2>
+            </div>
+            <span class="section-aside">工作经历</span>
+          </div>
+          <p class="demo-note">以下为示例结构，请替换为真实经历。</p>
+          <div class="timeline" id="experience-list"></div>
+        </section>
+        <section
+          class="section"
+          id="projects"
+          aria-labelledby="projects-heading"
+        >
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker mono">03 / SELECTED WORK</p>
+              <h2 id="projects-heading">
+                做过的事，写下的代码<span class="heading-dot">.</span>
+              </h2>
+            </div>
+            <a
+              class="quiet-link"
+              href="https://gitee.com/oct1231"
+              id="projects-gitee"
+              target="_blank"
+              rel="noopener noreferrer"
+              >我的 Gitee <span aria-hidden="true">↗</span></a
+            >
+          </div>
+          <p class="demo-note">项目内容为示例，不代表已完成的项目。</p>
+          <div class="project-grid" id="project-list"></div>
+        </section>
+        <section class="section" id="skills" aria-labelledby="skills-heading">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker mono">04 / TOOLBOX</p>
+              <h2 id="skills-heading">
+                我的技术工具箱<span class="heading-dot">.</span>
+              </h2>
+            </div>
+            <span class="section-aside">技能与教育</span>
+          </div>
+          <p class="demo-note">技能与教育信息为示例，请按实际情况填写。</p>
+          <div class="skills-grid" id="skills-list"></div>
+          <div class="education">
+            <div class="education-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="m2 9 10-5 10 5-10 5-10-5Zm4 2v6c4 3 8 3 12 0v-6m4-2v8"
+                />
+              </svg>
+            </div>
+            <div>
+              <span class="mono education-label">EDUCATION</span>
+              <h3 id="education-school">学校名称</h3>
+              <p id="education-major">专业 · 学历</p>
+            </div>
+            <span id="education-date">入学年份 — 毕业年份</span>
+          </div>
+        </section>
+        <section
+          class="contact-section"
+          id="contact"
+          aria-labelledby="contact-heading"
+        >
+          <div>
+            <p class="section-kicker mono">05 / LET’S CONNECT</p>
+            <h2 id="contact-heading">从一次交流开始<span>.</span></h2>
+            <p>关于工作、项目，或一个值得讨论的想法。</p>
+            <span class="contact-email" id="contact-email">邮箱待填写</span>
+          </div>
+          <button
+            class="contact-trigger contact-arrow"
+            aria-label="通过邮箱联系"
+            type="button"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m6 18 12-12M6 6h12v12" />
+            </svg>
+          </button>
+        </section>
+        <noscript
+          ><p class="noscript-note">
+            完整简历需要启用 JavaScript。你也可以直接访问
+            <a href="https://gitee.com/oct1231">Gitee 主页</a>。
+          </p></noscript
+        >
+      </main>
+      <footer class="footer">
+        <a href="#about"
+          ><span data-field="englishName">Xander</span
+          ><span class="footer-dot">.</span></a
+        ><span>认真做事，也认真生活。</span
+        ><a href="#about" class="back-top"
+          >回到顶部 <span aria-hidden="true">↑</span></a
+        >
+      </footer>
+    </div>
+    <dialog id="detail-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-top">
+        <span class="mono" id="dialog-kicker">PROJECT NOTES</span
+        ><button
+          class="icon-button"
+          id="dialog-close"
+          type="button"
+          aria-label="关闭弹窗"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m6 6 12 12M6 18 18 6" />
+          </svg>
+        </button>
+      </div>
+      <h2 id="dialog-title"></h2>
+      <p id="dialog-description"></p>
+      <a
+        class="button primary"
+        id="dialog-link"
+        hidden
+        target="_blank"
+        rel="noopener noreferrer"
+        >查看项目 <span aria-hidden="true">↗</span></a
+      ><button class="button secondary" id="dialog-ok" type="button">
+        知道了
+      </button>
+    </dialog>
+  </body>
+</html>

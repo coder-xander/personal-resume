@@ -29,7 +29,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <header class="site-header" data-pagefind-ignore>
       <div class="header-inner">
         <a class="wordmark" href={base} aria-label="Xander 个人主页">XANDER<span class="wordmark-spark" aria-hidden="true">✳</span><span class="wordmark-divider"></span><span class="wordmark-note mono">ENGINEERING<br/>PORTFOLIO</span></a>
-        <nav aria-label="主导航"><a href={`${base}#about`}>关于我</a><a href={`${base}#projects`}>项目经验</a><a class="nav-search" href={`${base}search/`}><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>搜索</span></a></nav>
+        <nav aria-label="主导航"><a href={`${base}#about`}>个人简介</a><a href={`${base}#projects`}>项目经验</a><a class="nav-search" href={`${base}search/`}><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>搜索</span></a></nav>
         <div class="header-actions"><button id="theme-toggle" class="icon-button" type="button" aria-label="切换到浅色模式" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></button><a class="header-github mono" href={site.github} target="_blank" rel="noopener noreferrer">GITHUB <span aria-hidden="true">↗</span></a></div>
       </div>
     </header>

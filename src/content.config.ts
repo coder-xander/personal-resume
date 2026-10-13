@@ -19,6 +19,7 @@ const projects = defineCollection({
     ]),
     order: z.number(),
     role: z.string(),
+    languages: z.array(z.string().min(1)).min(1),
     technologies: z.array(z.string()),
     pipeline: z.array(z.string()),
     featured: z.boolean().default(false),

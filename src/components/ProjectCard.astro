@@ -10,6 +10,6 @@ const category = categoryInfo(project.data.category);
     <div class="card-top mono"><span>{category.en} // {String(project.data.order).padStart(2, '0')}</span><span class="card-arrow" aria-hidden="true">↗</span></div>
     <h3>{project.data.title}</h3>
     <p>{project.data.summary}</p>
-    <div class="card-bottom"><span class="project-role">{project.data.role}</span><div class="tag-list">{project.data.technologies.slice(0, 4).map((tag) => <span>{tag}</span>)}</div></div>
+    <div class="card-bottom"><div class="card-languages"><span>实现语言</span><strong>{project.data.languages.map((language) => language.split("（")[0]).join(' / ')}</strong></div><span class="project-role">{project.data.role}</span><div class="tag-list">{project.data.technologies.slice(0, 4).map((tag) => <span>{tag}</span>)}</div></div>
   </a>
 </article>

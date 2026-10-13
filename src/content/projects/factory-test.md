@@ -2,8 +2,9 @@
 title: "设备产线测试与验收"
 summary: "将硬件探测、设备采集、下载分析、人工确认和报告归档串成一次可追踪的设备验收。"
 category: factory
-order: 12
+order: 11
 role: "独立设计与实现"
+languages: ["JavaScript（产测流程与 Vue 界面）", "Python（分析脚本）"]
 technologies: ["Electron", "Vue 3", "ADB", "JSON-RPC", "Web Audio", "Python"]
 pipeline:
   ["硬件探测", "Device Core 采集", "数据下载", "分析与人工确认", "报告归档"]
@@ -13,7 +14,7 @@ pipeline:
 
 设备出厂前需要确认相机、IMU、麦克风、无线模块和按键能够工作。自动结果与人工确认需要在同一次测试里保留，操作员也要能看到失败位置。
 
-我独立设计并实现产线测试应用，组织 USB ADB 通信、Device Core 采集、数据分析、人工确认与报告归档。
+独立设计并实现产线测试应用，组织 USB ADB 通信、Device Core 采集、数据分析、人工确认与报告归档。
 
 ## 架构设计与实现
 

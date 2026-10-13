@@ -13,7 +13,7 @@ const { expanded = false } = Astro.props;
   <div class="search-hints"><span class="mono">TRY</span>{['OTA', 'Zenoh', '标定', 'Windows', 'Grounding DINO'].map((term) => <button type="button" data-search-term={term}>{term}</button>)}</div>
   <div class="search-status" id="search-status" role="status" aria-live="polite"></div>
   <div class="search-results" id="search-results" hidden></div>
-  <noscript><p class="search-noscript">全文搜索需要 JavaScript。你也可以从<a href={`${base}#projects`}>项目索引</a>浏览全部内容。</p></noscript>
+  <noscript><p class="search-noscript">全文搜索需要 JavaScript。也可以从<a href={`${base}#projects`}>项目索引</a>浏览全部内容。</p></noscript>
 </div>
 <script>
   import { mergeSearchResults, type CatalogEntry } from '../lib/search';

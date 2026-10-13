@@ -4,6 +4,7 @@ summary: "统一设备控制入口，将采集、录制和预览拆分，通过 
 category: device
 order: 3
 role: "独立设计与实现"
+languages: ["Go（控制核心与预览）", "C++20（采集与录制）"]
 technologies: ["Go", "C++20", "Zenoh", "Pion WebRTC", "JSON-RPC"]
 pipeline:
   ["统一控制入口", "Device Core", "Acquisition", "Zenoh", "Recorder / Preview"]
@@ -13,7 +14,7 @@ pipeline:
 
 录制、预览、云端控制、蓝牙和按键都可能改变设备状态。入口各自维护业务规则时，容易出现状态冲突；预览与录制共用进程时，客户端行为也可能影响本地保存。
 
-我独立设计并实现设备软件架构，将控制面集中到 Go Device Core，并将数据面拆成采集、录制与预览服务。
+独立设计并实现设备软件架构，将控制面集中到 Go Device Core，并将数据面拆成采集、录制与预览服务。
 
 ## 架构设计与实现
 

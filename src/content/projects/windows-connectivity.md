@@ -4,6 +4,7 @@ summary: "用 Rust 用户态服务连接系统 WinUSB 与官方 Wintun，为采�
 category: connectivity
 order: 6
 role: "独立设计与实现"
+languages: ["Rust（桥接服务）", "PowerShell（安装与诊断）"]
 technologies: ["Rust", "USB ECM", "WinUSB", "Wintun", "NSIS"]
 pipeline: ["Windows IP", "Wintun", "Rust 服务", "WinUSB", "USB ECM 设备"]
 ---
@@ -12,7 +13,7 @@ pipeline: ["Windows IP", "Wintun", "Rust 服务", "WinUSB", "USB ECM 设备"]
 
 设备已有 USB ECM 网络接口，但 Windows 端需要配套连接方案，并且不能影响复合设备中的 ADB 接口。
 
-我独立设计并实现 Windows 主机连接方案、协议桥接服务和安装工具，将历史内核 miniport 路径演进为用户态架构。
+独立设计并实现 Windows 主机连接方案、协议桥接服务和安装工具，将历史内核 miniport 路径演进为用户态架构。
 
 ## 架构设计与实现
 

@@ -4,6 +4,7 @@ summary: "用 Go、Wails 与 React 组织设备连接、四路预览、传感器
 category: client
 order: 8
 role: "独立设计与实现"
+languages: ["Go（后台与桌面桥接）", "TypeScript（React 前端）"]
 technologies: ["Go", "Wails", "React / TypeScript", "WebRTC", "MCAP / ROS 2"]
 pipeline:
   ["设备发现与连接", "WebRTC / Zenoh", "实时监看", "原始录制", "回放与导出"]
@@ -13,7 +14,7 @@ pipeline:
 
 上位机需要将设备连接、实时监看、采集控制与数据管理放在同一个应用中。USB、局域网、窗口切换和网络抖动，还会影响预览与控制状态。
 
-我独立设计并实现 Ropedia Desktop，覆盖 Go 后端、Wails 桌面桥接、React 界面、实时数据处理与三平台交付。
+独立设计并实现 Ropedia Desktop，覆盖 Go 后端、Wails 桌面桥接、React 界面、实时数据处理与三平台交付。
 
 ## 架构设计与实现
 

@@ -5,7 +5,7 @@ export const site = {
   location: "上海，中国",
   github: "https://github.com/coder-xander",
   intro:
-    "在 Ropedia 独立完成设备系统、采集服务、管理平台、客户端与产线工具的整体架构设计和实现。从硬件接口、数据链路到产品交互，我负责把各层组织成可运行、可维护、可交付的完整系统。",
+    "在 Ropedia 独立完成设备系统、采集服务、管理平台、客户端与产线工具的整体架构设计和实现。覆盖硬件接口、数据链路与产品交互，各层通过统一契约组成可运行、可维护、可交付的完整系统。",
 };
 
 export const categories = [
@@ -30,7 +30,7 @@ export const categories = [
   { id: "cloud", title: "云端平台", en: "CLOUD", note: "设备生命周期与运维" },
   {
     id: "client",
-    title: "桌面与移动",
+    title: "桌面应用",
     en: "APPLICATIONS",
     note: "连接、监看与工作流",
   },

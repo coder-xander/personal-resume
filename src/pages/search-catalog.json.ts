@@ -12,7 +12,7 @@ export async function GET() {
         title: project.data.title,
         summary: project.data.summary,
         category: categoryInfo(project.data.category).title,
-        technologies: project.data.technologies,
+        technologies: [...project.data.languages, ...project.data.technologies],
       })),
     ),
     { headers: { "Content-Type": "application/json; charset=utf-8" } },

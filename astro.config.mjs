@@ -7,4 +7,14 @@ export default defineConfig({
   trailingSlash: "always",
   devToolbar: { enabled: false },
   markdown: { shikiConfig: { theme: "github-dark" } },
+  vite: {
+    server: {
+      watch: {
+        // Editors that save atomically create transient sibling directories
+        // (".file.ext.<pid>.<hash>.tmpdir"). Watching them makes Astro rebuild
+        // its route manifest against a path that no longer exists.
+        ignored: ["**/*.tmpdir", "**/*.tmpdir/**", "**/*.tmp"],
+      },
+    },
+  },
 });

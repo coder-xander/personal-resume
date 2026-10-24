@@ -56,9 +56,9 @@ for route, page in pages.items():
             assert unquote(target.fragment) in pages[target.path].ids, f"Missing anchor: {route} -> {href}"
         link_count += 1
 
-entry = json.loads((dist / "pagefind/pagefind-entry.json").read_text())
+entry = json.loads((dist / "pagefind/pagefind-entry.json").read_text(encoding="utf-8"))
 source_count = len(list((root / "src/content/projects").glob("*.md")))
-catalog = json.loads((dist / "search-catalog.json").read_text())
+catalog = json.loads((dist / "search-catalog.json").read_text(encoding="utf-8"))
 assert len(catalog) == source_count
 for item in catalog:
     assert item["url"] in pages, f"Catalog target missing: {item['url']}"

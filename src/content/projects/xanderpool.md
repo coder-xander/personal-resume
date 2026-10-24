@@ -2,7 +2,7 @@
 title: "xanderPool · C++20 线程池"
 summary: "现代 C++ 并发开源项目，以头文件库实现任务提交、工作窃取、任务组、动态线程管理和异步结果。"
 category: opensource
-order: 15
+order: 14
 role: "独立设计与实现"
 languages: ["C++20（头文件库与测试）"]
 context: "个人开源项目"

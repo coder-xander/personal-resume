@@ -13,7 +13,7 @@ const layers = [
   { en: 'CLOUD', title: '设备云与运维', sub: 'MQTT / PostgreSQL / OTA', anchor: 'cloud' },
   { en: 'APPLICATION', title: '桌面应用', sub: 'Go / Wails / React', anchor: 'client' },
   { en: 'FACTORY', title: '产线与标定', sub: 'Electron / Tauri / Airflow', anchor: 'factory' },
-  { en: 'INTELLIGENCE', title: 'Vera Agent 与本地物体检测', sub: 'ADK / MCP / Grounding DINO', anchor: 'ai' },
+  { en: 'INTELLIGENCE', title: 'Vera Agent', sub: 'ADK / MCP / Gemini', anchor: 'ai' },
 ];
 
 const architecture = [
@@ -39,9 +39,9 @@ const architecture = [
     href: projectUrl('desktop'),
   },
   {
-    kicker: '04 / AGENT & INFERENCE',
-    title: '两条 AI 应用链路',
-    body: 'Vera 通过 ADK 与 MCP 使用平台权限、工具和设备回执。本地物体检测消费 Desktop 预览数据，在独立推理进程运行，结果叠加与原始录制分开。',
+    kicker: '04 / AGENT & TOOLS',
+    title: 'Agent 与工具链路',
+    body: 'Vera 通过 ADK 与 MCP 使用平台权限、工具和设备回执，通过 Lark 连接平台业务，完成设备查询、诊断、工具执行与结果核对。',
     destination: 'Vera Agent 架构',
     href: projectUrl('vera-agent'),
   },

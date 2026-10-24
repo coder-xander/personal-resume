@@ -44,7 +44,7 @@ export const categories = [
     id: "ai",
     title: "AI 工程",
     en: "INTELLIGENCE",
-    note: "Vera Agent 与本地物体检测",
+    note: "Vera Agent 与工具执行",
   },
   {
     id: "opensource",

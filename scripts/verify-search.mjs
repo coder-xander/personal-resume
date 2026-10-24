@@ -63,7 +63,7 @@ try {
     ["标定", "calibration-workstation"],
     ["Zenoh", "device-core"],
     ["OTA", "firmware-ota"],
-    ["Grounding DINO", "local-ai"],
+    ["WebRTC", "device-core"],
     ["Vera", "vera-agent"],
     ["Agent", "vera-agent"],
     ["xanderPool", "xanderpool"],

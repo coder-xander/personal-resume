@@ -12,7 +12,7 @@ const { expanded = false } = Astro.props;
   </form>
   <div class="search-hints">
     <span class="search-hints-label mono">TRY</span>
-    {['OTA', 'Zenoh', '标定', 'Windows', 'Grounding DINO'].map((term) => <button type="button" data-search-term={term}>{term}</button>)}
+    {['OTA', 'Zenoh', '标定', 'Windows', 'WebRTC'].map((term) => <button type="button" data-search-term={term}>{term}</button>)}
   </div>
   <div class="search-status" id="search-status" role="status" aria-live="polite"></div>
   <div class="search-results" id="search-results" hidden></div>

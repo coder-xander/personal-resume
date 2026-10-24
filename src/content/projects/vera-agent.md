@@ -51,4 +51,4 @@ Vera 已作为设备平台的独立服务交付。验证覆盖身份与权限、
 
 ## 在产品链路中的位置
 
-Vera 使用 [设备管理平台](../device-cloud/) 的数据与业务能力，通过平台连接 [Device Core](../device-core/) 和 [OTA](../firmware-ota/)。另一条 AI 工作是 [本地物体检测模型接入](../local-ai/)，检测运行在 Desktop 的预览数据链路上。
+Vera 使用 [设备管理平台](../device-cloud/) 的数据与业务能力，通过平台连接 [Device Core](../device-core/) 和 [OTA](../firmware-ota/)。

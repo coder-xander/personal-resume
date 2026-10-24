@@ -3,17 +3,24 @@ import '@fontsource-variable/inter-tight';
 import '@fontsource/jetbrains-mono/400.css';
 import '../styles/global.css';
 import { base, site } from '../data/site';
-interface Props { title?: string; description?: string; }
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
 const { title = 'Xander · 从系统到产品', description = site.intro } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
+
 <!doctype html>
 <html lang="zh-CN" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#080808" />
+    <meta name="theme-color" content="#08090a" />
+    <meta name="color-scheme" content="dark light" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
@@ -21,34 +28,124 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
     <title>{title}</title>
     <script is:inline>
-      try { const theme = localStorage.getItem('xander-theme'); if (theme === 'light') document.documentElement.dataset.theme = theme; } catch {}
+      try {
+        const theme = localStorage.getItem('xander-theme');
+        if (theme === 'light') document.documentElement.dataset.theme = theme;
+      } catch {}
     </script>
   </head>
   <body>
     <a class="skip-link" href="#main">跳到正文</a>
+
     <header class="site-header" data-pagefind-ignore>
       <div class="header-inner">
-        <a class="wordmark" href={base} aria-label="Xander 个人主页">XANDER<span class="wordmark-spark" aria-hidden="true">✳</span><span class="wordmark-divider"></span><span class="wordmark-note mono">ENGINEERING<br/>PORTFOLIO</span></a>
-        <nav aria-label="主导航"><a href={`${base}#about`}>个人简介</a><a href={`${base}#projects`}>项目经验</a><a class="nav-search" href={`${base}search/`}><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>搜索</span></a></nav>
-        <div class="header-actions"><button id="theme-toggle" class="icon-button" type="button" aria-label="切换到浅色模式" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></button><a class="header-github mono" href={site.github} target="_blank" rel="noopener noreferrer">GITHUB <span aria-hidden="true">↗</span></a></div>
+        <a class="wordmark" href={base} aria-label="Xander 个人主页">
+          <span class="wordmark-mark">XANDER</span>
+          <span class="wordmark-spark" aria-hidden="true">✳</span>
+          <span class="wordmark-rule" aria-hidden="true"></span>
+          <span class="wordmark-note mono">ENGINEERING<br />PORTFOLIO</span>
+        </a>
+
+        <nav class="site-nav" aria-label="主导航">
+          <a class="nav-link" href={`${base}#about`}>个人简介</a>
+          <a class="nav-link" href={`${base}#projects`}>项目经验</a>
+          <a class="nav-link nav-search" href={`${base}search/`}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg>
+            <span>搜索</span>
+          </a>
+        </nav>
+
+        <div class="header-actions">
+          <button
+            id="theme-toggle"
+            class="icon-button"
+            type="button"
+            aria-label="切换到浅色模式"
+            aria-pressed="false"
+          >
+            <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" />
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z" />
+            </svg>
+          </button>
+          <a class="header-github" href={site.github} target="_blank" rel="noopener noreferrer">
+            GITHUB <span aria-hidden="true">↗</span>
+          </a>
+        </div>
       </div>
     </header>
+
     <slot />
-    <footer class="site-footer" data-pagefind-ignore><div class="footer-inner"><a class="footer-brand" href={base}>XANDER<span>✳</span></a><p>个人工程经历 · {site.location}</p><span class="mono">SHIP / MEASURE / DEBUG / REPEAT</span><a href="#main" class="back-top">回到顶部 ↑</a></div></footer>
+
+    <footer class="site-footer" data-pagefind-ignore>
+      <div class="footer-inner">
+        <div class="footer-brand-col">
+          <a class="footer-brand" href={base}>XANDER<span aria-hidden="true">✳</span></a>
+          <p class="footer-tagline">个人工程经历 · {site.location}</p>
+        </div>
+        <div class="footer-meta">
+          <span class="footer-motto">SHIP / MEASURE / DEBUG / REPEAT</span>
+          <a href="#main" class="back-top">回到顶部 <span aria-hidden="true">↑</span></a>
+        </div>
+      </div>
+    </footer>
+
     <script>
+      const root = document.documentElement;
       const button = document.querySelector<HTMLButtonElement>('#theme-toggle');
+      const metaTheme = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+
       const applyTheme = (theme: string) => {
-        document.documentElement.dataset.theme = theme;
+        root.dataset.theme = theme;
         button?.setAttribute('aria-label', theme === 'dark' ? '切换到浅色模式' : '切换到深色模式');
         button?.setAttribute('aria-pressed', String(theme === 'light'));
-        document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')!.content = theme === 'dark' ? '#080808' : '#f4f4f0';
+        if (metaTheme) metaTheme.content = theme === 'dark' ? '#08090a' : '#f3f4ee';
       };
-      applyTheme(document.documentElement.dataset.theme || 'dark');
+
+      applyTheme(root.dataset.theme || 'dark');
+
       button?.addEventListener('click', () => {
-        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
         applyTheme(next);
-        try { localStorage.setItem('xander-theme', next); } catch {}
+        try {
+          localStorage.setItem('xander-theme', next);
+        } catch {}
       });
+
+      const header = document.querySelector<HTMLElement>('.site-header');
+      const syncHeader = () => header?.classList.toggle('is-scrolled', window.scrollY > 6);
+      syncHeader();
+      window.addEventListener('scroll', syncHeader, { passive: true });
+
+      // Scroll reveal — content stays visible if the observer is unavailable.
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const targets = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
+      if (!reduced && 'IntersectionObserver' in window && targets.length) {
+        root.dataset.revealMode = 'on';
+        let fired = false;
+        const observer = new IntersectionObserver(
+          (entries) => {
+            fired = true;
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -6% 0px', threshold: 0.06 },
+        );
+        targets.forEach((target) => observer.observe(target));
+        window.setTimeout(() => {
+          if (!fired) {
+            root.dataset.revealMode = 'off';
+            targets.forEach((target) => target.classList.add('is-visible'));
+          }
+        }, 2400);
+      }
     </script>
   </body>
 </html>

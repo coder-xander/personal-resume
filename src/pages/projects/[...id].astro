@@ -10,15 +10,163 @@ const { project, previous, next } = Astro.props;
 const { Content, headings } = await render(project);
 const category = categoryInfo(project.data.category);
 const toc = headings.filter((heading) => heading.depth === 2);
+const order = String(project.data.order).padStart(2, '0');
 ---
 <Layout title={`${project.data.title} · Xander`} description={project.data.summary}>
-  <main id="main" class="project-page container">
-    <nav class="breadcrumb" aria-label="面包屑"><a href={base}>主页</a><span>/</span><a href={`${base}#projects`}>项目经验</a><span>/</span><span>{category.title}</span></nav>
-    <article data-pagefind-body>
-      <header class="project-hero"><p class="eyebrow mono" data-pagefind-meta="category">{category.title} / {category.en} // {String(project.data.order).padStart(2,'0')}</p><h1 data-pagefind-meta="title">{project.data.title}</h1><p class="project-summary">{project.data.summary}</p><div class="project-meta"><span>{project.data.role}</span><span>{project.data.context}</span></div><dl class="project-languages"><dt>实现语言</dt><dd>{project.data.languages.map((language) => <span>{language}</span>)}</dd></dl><div class="tag-list project-tags">{project.data.technologies.map((tag) => <span>{tag}</span>)}</div>{project.data.repository && <a class="text-link" href={project.data.repository} target="_blank" rel="noopener noreferrer">查看项目源码 <span aria-hidden="true">↗</span></a>}</header>
-      <div class="pipeline-panel"><span class="mono">WORKFLOW / ARCHITECTURE</span><ol>{project.data.pipeline.map((step) => <li>{step}</li>)}</ol></div>
-      <div class="article-layout"><div class="prose"><Content /></div><aside class="article-toc" data-pagefind-ignore><span class="mono">ON THIS PAGE</span><nav aria-label="本文目录">{toc.map((heading) => <a href={`#${heading.slug}`}>{heading.text}</a>)}</nav><a class="toc-index" href={`${base}#projects`}>← 返回项目索引</a></aside></div>
-    </article>
-    <nav class="project-pagination" aria-label="相邻项目">{previous ? <a href={projectUrl(previous.id)}><span class="mono">← PREVIOUS</span><strong>{previous.data.title}</strong></a> : <span></span>}{next ? <a href={projectUrl(next.id)}><span class="mono">NEXT →</span><strong>{next.data.title}</strong></a> : <a href={`${base}#projects`}><span class="mono">ALL PROJECTS ↗</span><strong>返回全部项目</strong></a>}</nav>
+  <main id="main" class="project-page">
+    <div class="container">
+      <nav class="breadcrumb project-breadcrumb" aria-label="面包屑"><a href={base}>主页</a><span>/</span><a href={`${base}#projects`}>项目经验</a><span>/</span><span>{category.title}</span></nav>
+
+      <article data-pagefind-body>
+        <header class="project-hero">
+          <div class="project-hero-copy" data-reveal>
+            <p class="eyebrow project-eyebrow">
+              <span class="signal-dot" aria-hidden="true"></span>
+              <span class="mono"><span data-pagefind-meta="category">{category.title} / {category.en}</span> // {order}</span>
+            </p>
+            <h1 class="project-hero-title" data-pagefind-meta="title">{project.data.title}</h1>
+            <p class="project-lede">{project.data.summary}</p>
+            <div class="project-hero-meta">
+              <span>{project.data.role}</span>
+              <span>{project.data.context}</span>
+            </div>
+          </div>
+
+          <aside class="project-spec panel" aria-label="项目信息" data-reveal style="--reveal-delay: 90ms">
+            <span class="numeral project-spec-order" aria-hidden="true">{order}</span>
+            <dl class="project-spec-langs">
+              <dt class="project-spec-label">实现语言</dt>
+              <dd>{project.data.languages.map((language) => <span>{language}</span>)}</dd>
+            </dl>
+            <div class="project-spec-tags">
+              <div class="tag-list">{project.data.technologies.map((tag) => <span>{tag}</span>)}</div>
+            </div>
+            {project.data.repository && <a class="text-link project-source" href={project.data.repository} target="_blank" rel="noopener noreferrer">查看项目源码 <span aria-hidden="true">↗</span></a>}
+          </aside>
+        </header>
+
+        <section class="pipeline-panel panel" aria-labelledby="workflow-heading" data-reveal>
+          <div class="pipeline-head">
+            <span id="workflow-heading" class="label pipeline-label"><span class="signal-dot" aria-hidden="true"></span>WORKFLOW / ARCHITECTURE</span>
+          </div>
+          <ol class="pipeline-steps">
+            {project.data.pipeline.map((step, index) => (
+              <li class="pipeline-step">
+                <span class="pipeline-index mono" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                <span class="pipeline-name">{step}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <div class="article-layout">
+          <div class="prose"><Content /></div>
+          <aside class="article-toc" data-pagefind-ignore data-project-toc>
+            <div class="toc-head"><span class="mono">ON THIS PAGE</span></div>
+            <nav class="toc-nav" aria-label="本文目录">{toc.map((heading) => <a href={`#${heading.slug}`}>{heading.text}</a>)}</nav>
+            <a class="toc-index" href={`${base}#projects`}>← 返回项目索引</a>
+          </aside>
+        </div>
+      </article>
+
+      <nav class="project-pagination" aria-label="相邻项目">
+        {previous ? <a class="card project-nav-card project-nav-prev" href={projectUrl(previous.id)}>
+          <span class="project-nav-top"><span class="mono">← PREVIOUS</span><span class="project-nav-arrow arrow-tile" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 12H4" /><path d="m10 6-6 6 6 6" /></svg></span></span>
+          <span class="project-nav-title">{previous.data.title}</span>
+        </a> : <span class="project-nav-spacer" aria-hidden="true"></span>}
+        {next ? <a class="card project-nav-card project-nav-next" href={projectUrl(next.id)}>
+          <span class="project-nav-top"><span class="mono">NEXT →</span><span class="project-nav-arrow arrow-tile" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16" /><path d="m14 6 6 6-6 6" /></svg></span></span>
+          <span class="project-nav-title">{next.data.title}</span>
+        </a> : <a class="card project-nav-card project-nav-all" href={`${base}#projects`}>
+          <span class="project-nav-top"><span class="mono">ALL PROJECTS ↗</span><span class="project-nav-arrow arrow-tile" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 18 18 6" /><path d="M8 6h10v10" /></svg></span></span>
+          <span class="project-nav-title">返回全部项目</span>
+        </a>}
+      </nav>
+    </div>
   </main>
 </Layout>
+
+<script>
+  const toc = document.querySelector<HTMLElement>('[data-project-toc]');
+  if (toc) {
+    const items = Array.from(toc.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'))
+      .map((link) => {
+        const href = link.getAttribute('href') || '';
+        const id = decodeURIComponent(href.slice(1));
+        const target = id ? document.getElementById(id) : null;
+        return target ? { link, target } : null;
+      })
+      .filter((item): item is { link: HTMLAnchorElement; target: HTMLElement } => item !== null);
+
+    if (items.length) {
+      let active: HTMLAnchorElement | null = null;
+      let railOffset = 96;
+      let queued = false;
+
+      const setActive = (link: HTMLAnchorElement | null) => {
+        if (link === active) return;
+        active = link;
+        for (const item of items) {
+          const on = item.link === link;
+          item.link.classList.toggle('is-active', on);
+          if (on) item.link.setAttribute('aria-current', 'location');
+          else item.link.removeAttribute('aria-current');
+        }
+      };
+
+      const measure = () => {
+        const header = document.querySelector<HTMLElement>('.site-header');
+        // Active-line sits just below the header so an anchored heading counts
+        // as current as soon as it lands (scroll-padding + scroll-margin ≈ 40px).
+        railOffset = (header ? header.getBoundingClientRect().height : 72) + 40;
+      };
+
+      const sync = () => {
+        let current = items[0].link;
+        for (const item of items) {
+          if (item.target.getBoundingClientRect().top - railOffset <= 4) current = item.link;
+        }
+        const doc = document.documentElement;
+        if (Math.ceil(window.scrollY + window.innerHeight) >= doc.scrollHeight - 2) {
+          current = items[items.length - 1].link;
+        }
+        setActive(current);
+      };
+
+      let observer: IntersectionObserver | null = null;
+      const observe = () => {
+        observer?.disconnect();
+        measure();
+        if (!('IntersectionObserver' in window)) return;
+        observer = new IntersectionObserver(sync, {
+          rootMargin: `-${Math.round(railOffset)}px 0px -${Math.max(1, Math.round(window.innerHeight - railOffset - 1))}px 0px`,
+          threshold: [0, 1],
+        });
+        for (const item of items) observer.observe(item.target);
+      };
+
+      const onScroll = () => {
+        if (queued) return;
+        queued = true;
+        window.requestAnimationFrame(() => {
+          queued = false;
+          sync();
+        });
+      };
+
+      // A clicked TOC link becomes active immediately; observers keep it in
+      // sync afterwards (smooth scrolling can be interrupted by the user).
+      toc.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        const link = target.closest<HTMLAnchorElement>('a[href^="#"]');
+        if (link && toc.contains(link)) setActive(link);
+      });
+
+      observe();
+      sync();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', observe, { passive: true });
+    }
+  }
+</script>

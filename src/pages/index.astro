@@ -4,7 +4,9 @@ import Layout from '../layouts/Layout.astro';
 import SearchPanel from '../components/SearchPanel.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { categories, site, projectUrl } from '../data/site';
+
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+
 const layers = [
   { en: 'SYSTEM', title: '启动与系统', sub: 'Linux / U-Boot / BSP', anchor: 'system' },
   { en: 'DEVICE', title: '采集与设备服务', sub: 'C++ / Go / Zenoh', anchor: 'device' },
@@ -13,26 +15,195 @@ const layers = [
   { en: 'FACTORY', title: '产线与标定', sub: 'Electron / Tauri / Airflow', anchor: 'factory' },
   { en: 'INTELLIGENCE', title: 'Vera Agent 与本地物体检测', sub: 'ADK / MCP / Grounding DINO', anchor: 'ai' },
 ];
+
+const architecture = [
+  {
+    kicker: '01 / CONTROL & DATA',
+    title: '控制面与数据面分离',
+    body: 'Device Core 统一 BLE、HTTP、MQTT 和按键的业务规则。采集、录制与预览分别运行，通过 Zenoh 共享数据，以租约和有界队列管理消费关系。',
+    destination: '设备架构',
+    href: projectUrl('device-core'),
+  },
+  {
+    kicker: '02 / STATE & LIFECYCLE',
+    title: '贯穿设备生命周期',
+    body: '设备身份连接刷写、出厂、测试、标定、运行与 OTA。设备管理平台以任务和设备回执确认结果，客户端与现场工具复用同一控制规则和档案。',
+    destination: '平台架构',
+    href: projectUrl('device-cloud'),
+  },
+  {
+    kicker: '03 / APPLICATION & DELIVERY',
+    title: '分层实现与独立交付',
+    body: '按硬件访问、业务控制、通信和交互划分模块。应用连接与后台任务采用独立生命周期，版本、校验信息和发布流程贯穿设备与客户端。',
+    destination: '客户端架构',
+    href: projectUrl('desktop'),
+  },
+  {
+    kicker: '04 / AGENT & INFERENCE',
+    title: '两条 AI 应用链路',
+    body: 'Vera 通过 ADK 与 MCP 使用平台权限、工具和设备回执。本地物体检测消费 Desktop 预览数据，在独立推理进程运行，结果叠加与原始录制分开。',
+    destination: 'Vera Agent 架构',
+    href: projectUrl('vera-agent'),
+  },
+];
 ---
+
 <Layout>
   <main id="main" class="home-main">
-    <section class="hero-section container" id="about" aria-labelledby="hero-heading">
-      <div class="hero-content"><p class="eyebrow mono"><span class="signal-dot"></span> XANDER / SYSTEM ARCHITECTURE</p><h1 id="hero-heading">从底层系统，<br/>到<span>完整产品。</span></h1><p class="hero-intro">{site.intro}</p><div class="hero-meta"><span>{site.location}</span><span>独立架构设计 × 完整实现</span></div><SearchPanel /><a class="hero-explore mono" href="#projects">EXPLORE THE WORK <span aria-hidden="true">↓</span></a></div>
-      <div class="stack-atlas" aria-label="从系统到应用的工程层级"><div class="atlas-heading mono"><span>THE ENGINEERING STACK</span><span class="atlas-cross">+</span></div><div class="atlas-grid">{layers.map((layer, index) => <a class="atlas-layer" href="#projects" data-layer={layer.anchor}><span class="layer-index mono">0{index + 1}</span><div><span class="layer-name">{layer.title}</span><span class="layer-tech mono">{layer.sub}</span></div><span class="layer-connector" aria-hidden="true">↗</span></a>)}</div><div class="atlas-footer mono"><span>HARDWARE → DATA → EXPERIENCE</span><span class="atlas-signal" aria-hidden="true">▂ ▃ ▅ ▇</span></div></div>
-    </section>
-    <section class="scope-strip" aria-label="项目范围"><div class="container scope-inner"><p class="mono">ROPEDIA × PERSONAL WORK</p><span>{projects.length} 个项目主题</span><span>{categories.length} 个工程方向</span><p>独立设计与实现，说明每层如何组成完整系统。</p></div></section>
-    <section class="architecture-section container" aria-labelledby="architecture-heading">
-      <div class="section-heading"><div><p class="eyebrow mono">// SYSTEM ARCHITECTURE</p><h2 id="architecture-heading">从底层到上层<br/>构成完整系统<span>.</span></h2></div><p class="section-note">从需求拆解、技术选型到接口定义，<br/>再到代码实现、部署与维护。</p></div>
-      <p class="architecture-intro">各项目独立完成整体架构设计与实现，围绕同一套设备产品统一控制入口、数据契约、任务状态与设备身份，连接系统、云端、应用和产线工具。</p>
-      <div class="architecture-grid">
-        <a href={projectUrl('device-core')} class="architecture-card"><span class="mono">01 / CONTROL &amp; DATA</span><h3>控制面与数据面分离</h3><p>Device Core 统一 BLE、HTTP、MQTT 和按键的业务规则。采集、录制与预览分别运行，通过 Zenoh 共享数据，以租约和有界队列管理消费关系。</p><span class="architecture-destination">设备架构 ↗</span></a>
-        <a href={projectUrl('device-cloud')} class="architecture-card"><span class="mono">02 / STATE &amp; LIFECYCLE</span><h3>贯穿设备生命周期</h3><p>设备身份连接刷写、出厂、测试、标定、运行与 OTA。设备管理平台以任务和设备回执确认结果，客户端与现场工具复用同一控制规则和档案。</p><span class="architecture-destination">平台架构 ↗</span></a>
-        <a href={projectUrl('desktop')} class="architecture-card"><span class="mono">03 / APPLICATION &amp; DELIVERY</span><h3>分层实现与独立交付</h3><p>按硬件访问、业务控制、通信和交互划分模块。应用连接与后台任务采用独立生命周期，版本、校验信息和发布流程贯穿设备与客户端。</p><span class="architecture-destination">客户端架构 ↗</span></a>
-        <a href={projectUrl('vera-agent')} class="architecture-card"><span class="mono">04 / AGENT &amp; INFERENCE</span><h3>两条 AI 应用链路</h3><p>Vera 通过 ADK 与 MCP 使用平台权限、工具和设备回执。本地物体检测消费 Desktop 预览数据，在独立推理进程运行，结果叠加与原始录制分开。</p><span class="architecture-destination">Vera Agent 架构 ↗</span></a>
+    <!-- 01 · HERO ------------------------------------------------------------>
+    <section class="hero" id="about" aria-labelledby="hero-heading">
+      <div class="hero-ambience" aria-hidden="true"></div>
+
+      <div class="hero-inner container">
+        <div class="hero-copy">
+          <p class="eyebrow mono hero-eyebrow">
+            <span class="signal-dot"></span> XANDER / SYSTEM ARCHITECTURE
+          </p>
+          <h1 id="hero-heading" class="hero-title">
+            从底层系统，<br />到<span>完整产品。</span>
+          </h1>
+          <p class="hero-intro">{site.intro}</p>
+          <p class="hero-meta mono">
+            <span>{site.location}</span>
+            <span class="hero-meta-sep" aria-hidden="true"></span>
+            <span>独立架构设计 × 完整实现</span>
+          </p>
+          <div class="hero-search"><SearchPanel /></div>
+          <a class="hero-explore" href="#projects">
+            <span class="mono">EXPLORE THE WORK</span>
+            <span class="hero-explore-arrow" aria-hidden="true">↓</span>
+          </a>
+        </div>
+
+        <aside class="atlas-panel panel" aria-label="从系统到应用的工程层级">
+          <div class="atlas-head mono">
+            <span>THE ENGINEERING STACK</span>
+            <span class="atlas-plus" aria-hidden="true">+</span>
+          </div>
+          <ol class="atlas-list">
+            {layers.map((layer, index) => (
+              <li class="atlas-item">
+                <a class="atlas-layer" href="#projects" data-layer={layer.anchor}>
+                  <span class="atlas-index mono">0{index + 1}</span>
+                  <span class="atlas-body">
+                    <span class="atlas-name">{layer.title}</span>
+                    <span class="atlas-tech mono">{layer.sub}</span>
+                  </span>
+                  <span class="atlas-arrow" aria-hidden="true">↗</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+          <div class="atlas-foot mono">
+            <span>HARDWARE → DATA → EXPERIENCE</span>
+            <span class="atlas-signal" aria-hidden="true">▂ ▃ ▅ ▇</span>
+          </div>
+        </aside>
       </div>
     </section>
-    <section class="projects-section container" id="projects" aria-labelledby="projects-heading"><div class="section-heading"><div><p class="eyebrow mono">// PROJECT INDEX</p><h2 id="projects-heading">逐层展开，逐项说明<span>.</span></h2></div><p class="section-note">从设备启动到数据采集，<br/>从工程工具到用户应用。</p></div><div class="project-controls"><div class="category-filters" role="group" aria-label="按技术层级筛选"><button type="button" data-category-filter="all" class="active" aria-pressed="true">全部 <span>{projects.length}</span></button>{categories.map((category) => <button type="button" data-category-filter={category.id} aria-pressed="false">{category.title}</button>)}</div><p class="project-count mono" aria-live="polite"><span id="project-count">{projects.length}</span> PROJECTS</p></div><div class="project-grid">{projects.map((project) => <ProjectCard project={project} />)}</div></section>
-    <section class="about-section container" aria-labelledby="working-heading"><div class="about-heading"><p class="eyebrow mono">// ARCHITECTURE IN PRACTICE</p><h2 id="working-heading">从系统边界<br/>落实到代码<span>.</span></h2></div><div class="about-detail"><p>从产品需求和系统约束出发，定义模块职责、接口、数据流与状态，再完成各层代码和交付流程。底层采集、设备控制、云端管理、客户端与产线工具都围绕同一套产品架构展开。</p><p>架构取舍体现在具体实现里：预览退出不影响录制，连接恢复不擅自启动采集，升级任务不依赖业务进程，Agent 操作由平台权限和设备回执约束。项目详情逐项说明这些设计如何落地。</p><a href={site.github} target="_blank" rel="noopener noreferrer" class="text-link">GitHub / @{site.handle}<span aria-hidden="true">↗</span></a></div></section>
+
+    <!-- 02 · SCOPE BAND ------------------------------------------------------>
+    <section class="scope-band" aria-label="项目范围">
+      <div class="container scope-inner">
+        <p class="scope-label mono">ROPEDIA × PERSONAL WORK</p>
+        <div class="scope-metrics">
+          <p class="scope-metric"><strong>{projects.length}</strong> 个项目主题</p>
+          <span class="scope-divider" aria-hidden="true"></span>
+          <p class="scope-metric"><strong>{categories.length}</strong> 个工程方向</p>
+        </div>
+        <p class="scope-note">独立设计与实现，说明每层如何组成完整系统。</p>
+      </div>
+    </section>
+
+    <!-- 03 · ARCHITECTURE ---------------------------------------------------->
+    <section class="architecture-section section" aria-labelledby="architecture-heading">
+      <div class="container">
+        <div class="section-heading" data-reveal>
+          <div>
+            <p class="eyebrow mono">// SYSTEM ARCHITECTURE</p>
+            <h2 id="architecture-heading">从底层到上层<br />构成完整系统<span>.</span></h2>
+          </div>
+          <p class="section-note">从需求拆解、技术选型到接口定义，<br />再到代码实现、部署与维护。</p>
+        </div>
+
+        <p class="architecture-intro" data-reveal>
+          各项目独立完成整体架构设计与实现，围绕同一套设备产品统一控制入口、数据契约、任务状态与设备身份，连接系统、云端、应用和产线工具。
+        </p>
+
+        <div class="architecture-grid">
+          {architecture.map((item) => (
+            <div class="arch-cell" data-reveal>
+              <a class="architecture-card card" href={item.href}>
+                <div class="arch-top">
+                  <span class="arch-kicker mono">{item.kicker}</span>
+                  <span class="arch-mark" aria-hidden="true">+</span>
+                </div>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+                <div class="arch-foot">
+                  <span class="architecture-destination">{item.destination}</span>
+                  <span class="arrow-tile" aria-hidden="true">↗</span>
+                </div>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 · PROJECTS -------------------------------------------------------->
+    <section class="projects-section section" id="projects" aria-labelledby="projects-heading">
+      <div class="container">
+        <div class="section-heading" data-reveal>
+          <div>
+            <p class="eyebrow mono">// PROJECT INDEX</p>
+            <h2 id="projects-heading">逐层展开，逐项说明<span>.</span></h2>
+          </div>
+          <p class="section-note">从设备启动到数据采集，<br />从工程工具到用户应用。</p>
+        </div>
+
+        <div class="project-toolbar" data-pagefind-ignore data-reveal>
+          <div class="category-filters" role="group" aria-label="按技术层级筛选">
+            <button type="button" data-category-filter="all" class="active" aria-pressed="true">
+              全部 <span>{projects.length}</span>
+            </button>
+            {categories.map((category) => (
+              <button type="button" data-category-filter={category.id} aria-pressed="false">
+                {category.title}
+              </button>
+            ))}
+          </div>
+          <p class="project-count mono" aria-live="polite">
+            <span id="project-count">{projects.length}</span> PROJECTS
+          </p>
+        </div>
+
+        <div class="project-grid">
+          {projects.map((project) => <ProjectCard project={project} />)}
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 · ARCHITECTURE IN PRACTICE --------------------------------------->
+    <section class="about-section section" aria-labelledby="working-heading">
+      <div class="container about-grid">
+        <div class="about-head" data-reveal>
+          <p class="eyebrow mono">// ARCHITECTURE IN PRACTICE</p>
+          <h2 id="working-heading">从系统边界<br />落实到代码<span>.</span></h2>
+        </div>
+        <div class="about-copy" data-reveal>
+          <p>
+            从产品需求和系统约束出发，定义模块职责、接口、数据流与状态，再完成各层代码和交付流程。底层采集、设备控制、云端管理、客户端与产线工具都围绕同一套产品架构展开。
+          </p>
+          <p>
+            架构取舍体现在具体实现里：预览退出不影响录制，连接恢复不擅自启动采集，升级任务不依赖业务进程，Agent 操作由平台权限和设备回执约束。项目详情逐项说明这些设计如何落地。
+          </p>
+          <a href={site.github} target="_blank" rel="noopener noreferrer" class="text-link">
+            GitHub / @{site.handle}<span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 </Layout>
 <script>

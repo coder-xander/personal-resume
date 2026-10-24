@@ -1,0 +1,143 @@
+/* ==========================================================================
+   DESIGN TOKENS — single source of truth for the whole site.
+   Owned by: Lead. Do not edit page-level files from here.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* ---- surfaces (near-black, slightly cool) ---- */
+  --bg: #08090a;
+  --bg-deep: #050607;
+  --bg-glass: rgba(8, 9, 10, 0.78);
+  --surface: #0e1112;
+  --surface-2: #14181a;
+  --surface-3: #1b2022;
+
+  /* ---- ink ---- */
+  --ink: #f0f2ec;
+  --ink-strong: #ffffff;
+  --muted: #a2a8a0;
+  --subtle: #6f766c;
+
+  /* ---- hairlines ---- */
+  --line: #232824;
+  --line-soft: #1a1e1b;
+  --line-strong: #3a423a;
+
+  /* ---- accent: lime, the brand signal ---- */
+  --accent: #ccffa0;
+  --accent-bright: #e6ffd2;
+  --accent-deep: #86b356;
+  --accent-ink: #0a1005;
+  --accent-soft: #16210f;
+  --accent-glow: rgba(204, 255, 160, 0.14);
+  --accent-wash: rgba(204, 255, 160, 0.06);
+
+  /* ---- grid / texture ---- */
+  --grid-line: rgba(255, 255, 255, 0.045);
+
+  /* ---- typography ---- */
+  --font-sans: "Inter Tight Variable", -apple-system, BlinkMacSystemFont,
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
+
+  --fs-label: 0.6875rem; /* 11px mono labels */
+  --fs-meta: 0.8125rem; /* 13px metadata */
+  --fs-body: 0.9375rem; /* 15px running text */
+  --fs-body-lg: 1.0625rem; /* 17px lead paragraphs */
+  --fs-lead: clamp(1rem, 0.35vw + 0.94rem, 1.125rem);
+  --fs-h3: clamp(1.1875rem, 0.9vw + 1rem, 1.5rem);
+  --fs-h2: clamp(1.875rem, 2.9vw + 1rem, 3.125rem);
+  --fs-h1: clamp(2rem, 2.6vw + 1.1rem, 3.375rem);
+  --fs-display: clamp(2.625rem, 6.4vw, 5.5rem);
+  --fs-display-2: clamp(2.25rem, 4.4vw, 3.75rem);
+
+  --lh-tight: 1.14;
+  --lh-heading: 1.28;
+  --lh-body: 1.85;
+
+  --tracking-display: -0.045em;
+  --tracking-heading: -0.028em;
+  --tracking-body: 0.002em;
+  --tracking-label: 0.16em;
+
+  /* ---- layout ---- */
+  --container: 1320px;
+  --container-narrow: 1080px;
+  --gutter: clamp(20px, 4.6vw, 72px);
+  --header-h: 72px;
+  --section-y: clamp(72px, 8.5vw, 132px);
+  --prose-width: 72ch;
+
+  /* ---- spacing scale ---- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+  --sp-8: 40px;
+  --sp-9: 48px;
+  --sp-10: 64px;
+  --sp-11: 80px;
+  --sp-12: 96px;
+
+  /* ---- radii ---- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  /* ---- effects ---- */
+  --shadow-sm: 0 1px 0 rgba(255, 255, 255, 0.035) inset,
+    0 10px 24px -18px rgba(0, 0, 0, 0.9);
+  --shadow-md: 0 1px 0 rgba(255, 255, 255, 0.045) inset,
+    0 26px 56px -34px rgba(0, 0, 0, 0.95);
+  --shadow-lift: 0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 34px 70px -36px rgba(0, 0, 0, 1), 0 0 0 1px var(--accent-wash);
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur: 260ms;
+  --dur-slow: 620ms;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #f3f4ee;
+  --bg-deep: #e9ebe3;
+  --bg-glass: rgba(243, 244, 238, 0.82);
+  --surface: #fbfcf8;
+  --surface-2: #f1f3ea;
+  --surface-3: #e7eade;
+
+  --ink: #11150f;
+  --ink-strong: #000000;
+  --muted: #565e50;
+  --subtle: #7c8476;
+
+  --line: #d7ddcb;
+  --line-soft: #e3e7d9;
+  --line-strong: #b8c1a8;
+
+  --accent: #3f6d15;
+  --accent-bright: #2f540f;
+  --accent-deep: #2f5410;
+  --accent-ink: #f7ffe9;
+  --accent-soft: #e6efd8;
+  --accent-glow: rgba(63, 109, 21, 0.12);
+  --accent-wash: rgba(63, 109, 21, 0.06);
+
+  --grid-line: rgba(20, 40, 8, 0.05);
+
+  --shadow-sm: 0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 10px 24px -20px rgba(24, 40, 10, 0.35);
+  --shadow-md: 0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 24px 50px -32px rgba(24, 40, 10, 0.4);
+  --shadow-lift: 0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 30px 60px -34px rgba(24, 40, 10, 0.45), 0 0 0 1px var(--accent-wash);
+}

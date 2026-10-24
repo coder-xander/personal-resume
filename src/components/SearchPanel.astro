@@ -5,12 +5,15 @@ const { expanded = false } = Astro.props;
 ---
 <div class:list={['search-panel', { 'search-expanded': expanded }]} data-search-panel data-base={base} data-pagefind-ignore>
   <form class="search-form" role="search" action={`${base}search/`} method="get">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg>
     <label class="sr-only" for="project-search">搜索项目、技术或工程问题</label>
     <input id="project-search" type="search" name="q" autocomplete="off" placeholder="搜索项目、技术或工程问题…" aria-controls="search-results" aria-describedby="search-status" />
-    <button type="submit" aria-label="搜索">搜索 <span aria-hidden="true">↗</span></button>
+    <button class="search-submit" type="submit" aria-label="搜索">搜索 <span aria-hidden="true">↗</span></button>
   </form>
-  <div class="search-hints"><span class="mono">TRY</span>{['OTA', 'Zenoh', '标定', 'Windows', 'Grounding DINO'].map((term) => <button type="button" data-search-term={term}>{term}</button>)}</div>
+  <div class="search-hints">
+    <span class="search-hints-label mono">TRY</span>
+    {['OTA', 'Zenoh', '标定', 'Windows', 'Grounding DINO'].map((term) => <button type="button" data-search-term={term}>{term}</button>)}
+  </div>
   <div class="search-status" id="search-status" role="status" aria-live="polite"></div>
   <div class="search-results" id="search-results" hidden></div>
   <noscript><p class="search-noscript">全文搜索需要 JavaScript。也可以从<a href={`${base}#projects`}>项目索引</a>浏览全部内容。</p></noscript>

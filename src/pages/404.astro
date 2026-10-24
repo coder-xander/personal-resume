@@ -2,4 +2,22 @@
 import Layout from '../layouts/Layout.astro';
 import { base } from '../data/site';
 ---
-<Layout title="页面未找到 · Xander"><main id="main" class="container not-found"><p class="eyebrow mono">404 / PAGE NOT FOUND</p><h1>这页暂时不存在<span>.</span></h1><p>可以回到项目索引，或通过搜索查找内容。</p><a href={base} class="button">返回主页 ↗</a><a href={`${base}search/`} class="text-link">搜索项目</a></main></Layout>
+<Layout title="页面未找到 · Xander">
+  <main id="main" class="container not-found">
+    <div class="not-found-stage">
+      <div class="not-found-figure">
+        <span class="nf-ghost" aria-hidden="true">404</span>
+      </div>
+
+      <div class="not-found-copy">
+        <p class="eyebrow mono">404 / PAGE NOT FOUND</p>
+        <h1>这页暂时不存在<span>.</span></h1>
+        <p class="not-found-text">可以回到项目索引，或通过搜索查找内容。</p>
+        <div class="not-found-actions">
+          <a href={base} class="btn btn-primary">返回主页 <span aria-hidden="true">↗</span></a>
+          <a href={`${base}search/`} class="text-link">搜索项目</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

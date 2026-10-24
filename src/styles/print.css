@@ -1,0 +1,66 @@
+/* Print — resume-friendly, ink on paper. */
+@media print {
+  @page {
+    size: A4;
+    margin: 16mm;
+  }
+
+  :root,
+  [data-theme="light"] {
+    --bg: #fff;
+    --surface: #fff;
+    --surface-2: #fff;
+    --ink: #111;
+    --muted: #444;
+    --subtle: #555;
+    --line: #d5d5d5;
+    --line-soft: #e5e5e5;
+    --accent: #23480f;
+    --accent-ink: #fff;
+  }
+
+  body {
+    background: #fff;
+    font-size: 10.5pt;
+  }
+
+  /* Decorative / interactive chrome that has no meaning on paper. */
+  .site-header,
+  .site-nav,
+  .header-actions,
+  .site-footer,
+  .skip-link,
+  .search-panel,
+  .article-toc,
+  .project-pagination,
+  .category-filters,
+  .project-toolbar,
+  .hero-explore,
+  .hero-ambience,
+  .page-ambience {
+    display: none !important;
+  }
+
+  /* Scroll-reveal must never hide content on paper. */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .container,
+  .container-wide {
+    width: 100%;
+  }
+
+  a {
+    color: #111;
+    text-decoration: none;
+  }
+
+  .card,
+  .panel {
+    break-inside: avoid;
+    box-shadow: none;
+    background: #fff;
+  }
+}

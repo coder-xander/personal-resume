@@ -11,6 +11,7 @@ interface Props {
 
 const { title = 'Xander · 从系统到产品', description = site.intro } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const year = new Date().getFullYear();
 ---
 
 <!doctype html>
@@ -28,13 +29,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
     <title>{title}</title>
     <script is:inline>
+      document.documentElement.classList.add('js');
       try {
         const theme = localStorage.getItem('xander-theme');
         if (theme === 'light') document.documentElement.dataset.theme = theme;
       } catch {}
     </script>
   </head>
-  <body>
+  <body data-base={base}>
     <a class="skip-link" href="#main">跳到正文</a>
 
     <header class="site-header" data-pagefind-ignore>
@@ -46,9 +48,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           <span class="wordmark-note mono">ENGINEERING<br />PORTFOLIO</span>
         </a>
 
-        <nav class="site-nav" aria-label="主导航">
-          <a class="nav-link" href={`${base}#about`}>个人简介</a>
-          <a class="nav-link" href={`${base}#projects`}>项目经验</a>
+        <nav class="site-nav" id="site-nav" aria-label="主导航">
+          <a class="nav-link" href={`${base}#featured`}>精选项目</a>
+          <a class="nav-link" href={`${base}#projects`}>项目索引</a>
+          <a class="nav-link" href={`${base}#scope`}>工程范围</a>
+          <a class="nav-link" href={`${base}#contact`}>联系</a>
           <a class="nav-link nav-search" href={`${base}search/`}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg>
             <span>搜索</span>
@@ -56,6 +60,18 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         </nav>
 
         <div class="header-actions">
+          <button
+            id="nav-toggle"
+            class="icon-button nav-toggle"
+            type="button"
+            aria-label="打开导航"
+            aria-expanded="false"
+            aria-controls="site-nav"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+          </button>
           <button
             id="theme-toggle"
             class="icon-button"
@@ -84,10 +100,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       <div class="footer-inner">
         <div class="footer-brand-col">
           <a class="footer-brand" href={base}>XANDER<span aria-hidden="true">✳</span></a>
-          <p class="footer-tagline">个人工程经历 · {site.location}</p>
+          <p class="footer-tagline">{site.role} · {site.location}</p>
+          <p class="footer-copy mono">© {year} Xander · 独立架构设计与实现</p>
         </div>
         <div class="footer-meta">
           <span class="footer-motto">SHIP / MEASURE / DEBUG / REPEAT</span>
+          <a class="footer-github" href={site.github} target="_blank" rel="noopener noreferrer">GITHUB <span aria-hidden="true">↗</span></a>
           <a href="#main" class="back-top">回到顶部 <span aria-hidden="true">↑</span></a>
         </div>
       </div>
@@ -120,6 +138,30 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       syncHeader();
       window.addEventListener('scroll', syncHeader, { passive: true });
 
+      // Mobile navigation sheet.
+      const nav = document.querySelector<HTMLElement>('#site-nav');
+      const navToggle = document.querySelector<HTMLButtonElement>('#nav-toggle');
+      if (nav && navToggle) {
+        const setOpen = (open: boolean, restoreFocus = false) => {
+          nav.classList.toggle('is-open', open);
+          navToggle.setAttribute('aria-expanded', String(open));
+          navToggle.setAttribute('aria-label', open ? '关闭导航' : '打开导航');
+          if (open) nav.querySelector<HTMLAnchorElement>('a')?.focus();
+          else if (restoreFocus) navToggle.focus();
+        };
+        navToggle.addEventListener('click', () => setOpen(navToggle.getAttribute('aria-expanded') !== 'true'));
+        nav.addEventListener('click', (event) => {
+          if (event.target instanceof Element && event.target.closest('a')) setOpen(false);
+        });
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && nav.classList.contains('is-open')) setOpen(false, true);
+        });
+        document.addEventListener('click', (event) => {
+          if (!(event.target instanceof Element)) return;
+          if (!event.target.closest('#site-nav') && !event.target.closest('#nav-toggle')) setOpen(false);
+        });
+      }
+
       // Scroll reveal — content stays visible if the observer is unavailable.
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const targets = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
@@ -146,6 +188,53 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           }
         }, 2400);
       }
+
+      // Section awareness — highlight the nav anchor matching the section in view.
+      const sectionLinks = [...document.querySelectorAll<HTMLAnchorElement>('.site-nav .nav-link[href*="#"]')]
+        .flatMap((link) => {
+          const hash = new URL(link.href).hash;
+          const target = hash ? document.getElementById(decodeURIComponent(hash.slice(1))) : null;
+          return target ? [{ link, target }] : [];
+        });
+
+      if (sectionLinks.length) {
+        let current = sectionLinks[0].link;
+        const syncNav = () => {
+          const offset = (header?.getBoundingClientRect().height ?? 72) + 48;
+          let active = sectionLinks[0].link;
+          for (const item of sectionLinks) {
+            if (item.target.getBoundingClientRect().top - offset <= 0) active = item.link;
+          }
+          if (active === current) return;
+          current = active;
+          for (const item of sectionLinks) {
+            if (item.link === active) item.link.setAttribute('aria-current', 'location');
+            else item.link.removeAttribute('aria-current');
+          }
+        };
+        let navQueued = false;
+        window.addEventListener(
+          'scroll',
+          () => {
+            if (navQueued) return;
+            navQueued = true;
+            window.requestAnimationFrame(() => {
+              navQueued = false;
+              syncNav();
+            });
+          },
+          { passive: true },
+        );
+        syncNav();
+      }
+
+      // Global search shortcut — pages without an inline search field jump to /search/.
+      document.addEventListener('keydown', (event) => {
+        if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== 'k') return;
+        if (document.getElementById('project-search')) return;
+        event.preventDefault();
+        window.location.assign((document.body.dataset.base || '/') + 'search/');
+      });
     </script>
   </body>
 </html>

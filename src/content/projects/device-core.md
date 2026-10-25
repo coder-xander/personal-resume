@@ -4,6 +4,7 @@ summary: "统一设备控制入口，将采集、录制和预览拆分，通过 
 category: device
 order: 3
 role: "独立设计与实现"
+featured: true
 languages: ["Go（控制核心与预览）", "C++20（采集与录制）"]
 technologies: ["Go", "C++20", "Zenoh", "Pion WebRTC", "JSON-RPC"]
 pipeline:

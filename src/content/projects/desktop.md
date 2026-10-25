@@ -4,6 +4,7 @@ summary: "用 Go、Wails 与 React 组织设备连接、四路预览、传感器
 category: client
 order: 8
 role: "独立设计与实现"
+featured: true
 languages: ["Go（后台与桌面桥接）", "TypeScript（React 前端）"]
 technologies: ["Go", "Wails", "React / TypeScript", "WebRTC", "MCAP / ROS 2"]
 pipeline:

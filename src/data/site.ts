@@ -4,8 +4,12 @@ export const site = {
   role: "系统架构与全栈工程师",
   location: "上海，中国",
   github: "https://github.com/coder-xander",
+  email: "xhr1028@foxmail.com",
+  company: "Ropedia",
   intro:
     "在 Ropedia 独立完成设备系统、采集服务、管理平台、客户端与产线工具的整体架构设计和实现。覆盖硬件接口、数据链路与产品交互，各层通过统一契约组成可运行、可维护、可交付的完整系统。",
+  introShort:
+    "在 Ropedia 独立完成从设备系统、采集服务到管理平台、客户端与产线工具的架构设计与实现。",
 };
 
 export const categories = [

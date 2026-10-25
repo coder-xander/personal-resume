@@ -8,15 +8,20 @@
   :root,
   [data-theme="light"] {
     --bg: #fff;
+    --bg-deep: #fff;
     --surface: #fff;
     --surface-2: #fff;
+    --surface-3: #fff;
     --ink: #111;
-    --muted: #444;
-    --subtle: #555;
+    --ink-strong: #111;
+    --muted: #333;
+    --subtle: #444;
     --line: #d5d5d5;
     --line-soft: #e5e5e5;
+    --line-strong: #999;
     --accent: #23480f;
     --accent-ink: #fff;
+    --accent-soft: #f0f0f0;
   }
 
   body {
@@ -35,6 +40,8 @@
   .project-pagination,
   .category-filters,
   .project-toolbar,
+  .project-tools,
+  .featured-all,
   .hero-explore,
   .hero-ambience,
   .page-ambience {

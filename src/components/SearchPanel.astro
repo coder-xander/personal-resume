@@ -36,6 +36,28 @@ const { expanded = false } = Astro.props;
       return enginePromise;
     };
     let revision = 0;
+    const paint = (items: ReturnType<typeof mergeSearchResults>, message: string) => {
+      results.replaceChildren();
+      status.textContent = message;
+      for (const item of items) {
+        const link = document.createElement('a');
+        link.className = 'search-result';
+        const destination = new URL(item.url, window.location.origin);
+        if (destination.origin !== window.location.origin || !destination.pathname.startsWith(basePath)) continue;
+        link.href = destination.href;
+        const heading = document.createElement('h3');
+        heading.textContent = item.meta.title || '项目详情';
+        const category = document.createElement('span');
+        category.className = 'mono';
+        category.textContent = item.meta.category || '工程项目';
+        const excerpt = document.createElement('p');
+        if (item.summary) excerpt.textContent = item.summary;
+        else excerpt.innerHTML = item.excerpt || '';
+        link.append(category, heading, excerpt);
+        results.append(link);
+      }
+      results.hidden = !results.childElementCount;
+    };
     const renderSearch = async () => {
       const term = input.value.trim();
       const current = ++revision;
@@ -50,30 +72,28 @@ const { expanded = false } = Astro.props;
         const matched = mergeSearchResults(term, fullTextItems, catalog);
         const items = matched.slice(0, 12);
         if (revision !== current) return;
-        results.replaceChildren();
-        status.textContent = matched.length ? `找到 ${matched.length} 项内容${matched.length > 12 ? '，显示前 12 项' : ''}` : '没有找到相关内容，可以换一个关键词。';
-        for (const item of items) {
-          const link = document.createElement('a');
-          link.className = 'search-result';
-          const destination = new URL(item.url, window.location.origin);
-          if (destination.origin !== window.location.origin || !destination.pathname.startsWith(basePath)) continue;
-          link.href = destination.href;
-          const heading = document.createElement('h3');
-          heading.textContent = item.meta.title || '项目详情';
-          const category = document.createElement('span');
-          category.className = 'mono';
-          category.textContent = item.meta.category || '工程项目';
-          const excerpt = document.createElement('p');
-          if (item.summary) excerpt.textContent = item.summary;
-          else excerpt.innerHTML = item.excerpt || '';
-          link.append(category, heading, excerpt);
-          results.append(link);
-        }
-        results.hidden = !items.length;
+        paint(
+          items,
+          matched.length ? `找到 ${matched.length} 项内容${matched.length > 12 ? '，显示前 12 项' : ''}` : '没有找到相关内容，可以换一个关键词。',
+        );
       } catch {
         if (revision !== current) return;
-        status.textContent = '搜索暂时无法加载，请刷新重试，或从项目索引浏览。';
-        results.hidden = true;
+        // Full-text index is produced at build time; fall back to the project catalog
+        // so search still works in dev and if the Pagefind bundle cannot load.
+        try {
+          const catalog = await loadCatalog();
+          const matched = mergeSearchResults(term, [], catalog).slice(0, 12);
+          if (revision !== current) return;
+          paint(
+            matched,
+            matched.length
+              ? `按项目目录匹配到 ${matched.length} 项；全文搜索在构建索引后可用`
+              : '没有找到相关内容，可以换一个关键词。',
+          );
+        } catch {
+          status.textContent = '搜索暂时无法加载，请刷新重试，或从项目索引浏览。';
+          results.hidden = true;
+        }
       } finally { if (revision === current) results.removeAttribute('aria-busy'); }
     };
     input.addEventListener('input', renderSearch);

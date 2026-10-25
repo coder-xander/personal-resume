@@ -1,22 +1,15 @@
 /* ==========================================================================
    HOME — Xander engineering portfolio (home page only)
-   Owned by: home-ui. Composes tokens.css + shell.css primitives; adds no
-   new colors, only layout / rhythm / page-local surfaces.
-   Sections: hero · stack atlas · scope band · architecture · projects · about
+   Composes tokens.css + shell.css primitives. No new colors.
+   Sections: hero · signal band · selected work · project index · scope · contact
    ========================================================================== */
 
-/* --------------------------------------------------------------------------
-   Section rhythm
-   -------------------------------------------------------------------------- */
-
-:where(.home-main) .architecture-section .section-heading,
-:where(.home-main) .projects-section .section-heading {
-  margin-bottom: clamp(28px, 3.4vw, 44px);
+:where(.home-main) {
+  --section-y: clamp(56px, 5.9vw, 88px);
 }
 
-:where(.home-main) .about-section {
-  border-top: 1px solid var(--line);
-  padding-bottom: 0;
+:where(.home-main) .section {
+  padding-block: var(--section-y);
 }
 
 /* ==========================================================================
@@ -25,11 +18,10 @@
 
 :where(.home-main) .hero {
   position: relative;
-  padding-top: clamp(40px, 5vw, 82px);
-  padding-bottom: clamp(60px, 7.5vw, 112px);
+  padding-top: clamp(28px, 3.2vw, 48px);
+  padding-bottom: clamp(44px, 4.8vw, 68px);
 }
 
-/* faint engineering grid + a single quiet glow, both decorative */
 :where(.home-main) .hero-ambience {
   position: absolute;
   inset: 0;
@@ -46,29 +38,29 @@
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: clamp(52px, 6vw, 88px) clamp(52px, 6vw, 88px);
-  -webkit-mask-image: radial-gradient(135% 105% at 74% -12%, #000 8%, transparent 66%);
-  mask-image: radial-gradient(135% 105% at 74% -12%, #000 8%, transparent 66%);
+  -webkit-mask-image: radial-gradient(130% 100% at 78% -10%, #000 6%, transparent 62%);
+  mask-image: radial-gradient(130% 100% at 78% -10%, #000 6%, transparent 62%);
 }
 
 :where(.home-main) .hero-ambience::after {
   content: "";
   position: absolute;
-  top: clamp(-360px, -22vw, -170px);
-  right: clamp(-300px, -15vw, -80px);
-  width: clamp(420px, 44vw, 760px);
+  top: clamp(-340px, -20vw, -160px);
+  right: clamp(-280px, -14vw, -70px);
+  width: clamp(380px, 40vw, 680px);
   aspect-ratio: 1;
   border-radius: 50%;
   background: radial-gradient(circle at center, var(--accent-glow), transparent 62%);
-  opacity: 0.9;
+  opacity: 0.85;
 }
 
 :where(.home-main) .hero-inner {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
   align-items: start;
-  gap: clamp(44px, 5vw, 76px);
+  gap: clamp(36px, 4.4vw, 64px);
 }
 
 :where(.home-main) .hero-copy {
@@ -76,19 +68,18 @@
   flex-direction: column;
   align-items: flex-start;
   min-width: 0;
-  padding-top: clamp(0px, 0.8vw, 10px);
 }
 
 :where(.home-main) .hero-eyebrow {
-  margin-bottom: clamp(22px, 2.6vw, 34px);
+  margin-bottom: clamp(18px, 2vw, 26px);
 }
 
 :where(.home-main) .hero-title {
-  max-width: 15ch;
-  font-size: var(--fs-display);
+  max-width: 13ch;
+  font-size: clamp(2.5rem, 4.8vw, 4.125rem);
   font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: var(--tracking-heading);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
   color: var(--ink-strong);
 }
 
@@ -96,22 +87,51 @@
   color: var(--accent);
 }
 
-:where(.home-main) .hero-intro {
-  max-width: 34em;
-  margin-top: clamp(22px, 2.4vw, 32px);
+:where(.home-main) .hero-identity {
+  max-width: 38em;
+  margin-top: clamp(18px, 2vw, 24px);
   color: var(--muted);
   font-size: var(--fs-body-lg);
-  line-height: 1.92;
+  line-height: 1.78;
+}
+
+:where(.home-main) .hero-identity strong {
+  color: var(--ink-strong);
+  font-weight: 600;
+}
+
+:where(.home-main) .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  margin-top: clamp(22px, 2.4vw, 30px);
+}
+
+:where(.home-main) .hero-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding-inline: 8px;
+  color: var(--muted);
+  font-size: var(--fs-meta);
+  transition: color var(--dur) var(--ease), gap var(--dur) var(--ease);
+}
+
+:where(.home-main) .hero-link:hover {
+  color: var(--accent);
+  gap: 12px;
 }
 
 :where(.home-main) .hero-meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px 18px;
-  margin-top: clamp(20px, 2.2vw, 28px);
-  color: var(--muted);
-  font-size: var(--fs-label);
+  gap: 8px 14px;
+  margin-top: clamp(16px, 1.8vw, 22px);
+  color: var(--subtle);
+  font-size: 0.6875rem;
   letter-spacing: 0.1em;
 }
 
@@ -120,57 +140,6 @@
   width: 1px;
   height: 11px;
   background: var(--line-strong);
-}
-
-/* SearchPanel is owned by another agent — only position its wrapper. */
-:where(.home-main) .hero-search {
-  width: 100%;
-  max-width: 33rem;
-  margin-top: clamp(28px, 3.2vw, 40px);
-}
-
-:where(.home-main) .hero-explore {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 44px;
-  margin-top: clamp(16px, 1.8vw, 24px);
-  color: var(--muted);
-  transition:
-    color var(--dur) var(--ease),
-    gap var(--dur) var(--ease);
-}
-
-:where(.home-main) .hero-explore .mono {
-  font-size: var(--fs-label);
-  letter-spacing: var(--tracking-label);
-}
-
-:where(.home-main) .hero-explore-arrow {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border: 1px solid var(--line-strong);
-  border-radius: 50%;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1;
-  transition:
-    color var(--dur) var(--ease),
-    border-color var(--dur) var(--ease),
-    transform var(--dur) var(--ease);
-}
-
-:where(.home-main) .hero-explore:hover {
-  gap: 16px;
-  color: var(--accent);
-}
-
-:where(.home-main) .hero-explore:hover .hero-explore-arrow {
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: translateY(3px);
 }
 
 /* ---------- stack atlas --------------------------------------------------- */
@@ -189,7 +158,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  padding: clamp(14px, 1.4vw, 18px) clamp(18px, 1.7vw, 24px);
+  padding: 14px clamp(16px, 1.6vw, 22px);
   border-bottom: 1px solid var(--line-soft);
   color: var(--muted);
   letter-spacing: var(--tracking-label);
@@ -210,22 +179,15 @@
   list-style: none;
 }
 
-/* spine that carries the six layers */
 :where(.home-main) .atlas-list::before {
   content: "";
   position: absolute;
-  top: 20px;
-  bottom: 20px;
-  left: 22px;
+  top: 18px;
+  bottom: 18px;
+  left: 21px;
   z-index: 0;
   width: 1px;
-  background: linear-gradient(
-    180deg,
-    transparent,
-    var(--line) 10%,
-    var(--line) 90%,
-    transparent
-  );
+  background: linear-gradient(180deg, transparent, var(--line) 10%, var(--line) 90%, transparent);
 }
 
 :where(.home-main) .atlas-item + .atlas-item {
@@ -235,33 +197,29 @@
 :where(.home-main) .atlas-layer {
   position: relative;
   display: grid;
-  grid-template-columns: 26px minmax(0, 1fr) 16px;
+  grid-template-columns: 24px minmax(0, 1fr) 16px;
   align-items: center;
-  gap: 12px;
-  padding: 13px clamp(18px, 1.7vw, 24px) 13px 44px;
+  gap: 11px;
+  min-height: 56px;
+  padding: 10px clamp(16px, 1.6vw, 22px) 10px 40px;
   transition: background var(--dur) var(--ease);
 }
 
-/* node on the spine */
 :where(.home-main) .atlas-layer::before {
   content: "";
   position: absolute;
   top: 50%;
-  left: 20px;
+  left: 19px;
   z-index: 1;
-  width: 6px;
-  height: 6px;
-  margin-top: -3px;
+  width: 5px;
+  height: 5px;
+  margin-top: -2.5px;
   border: 1px solid var(--line-strong);
   border-radius: 50%;
   background: var(--surface);
-  transition:
-    border-color var(--dur) var(--ease),
-    background var(--dur) var(--ease),
-    box-shadow var(--dur) var(--ease);
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
 }
 
-/* accent rail that grows in on hover */
 :where(.home-main) .atlas-layer::after {
   content: "";
   position: absolute;
@@ -286,9 +244,6 @@
 :where(.home-main) .atlas-layer:hover::before {
   border-color: var(--accent);
   background: var(--accent);
-  box-shadow:
-    0 0 0 3px var(--accent-wash),
-    0 0 12px var(--accent-glow);
 }
 
 :where(.home-main) .atlas-layer:focus-visible {
@@ -296,7 +251,7 @@
 }
 
 :where(.home-main) .atlas-index {
-  color: var(--muted);
+  color: var(--subtle);
   font-size: 0.625rem;
   letter-spacing: 0.1em;
   transition: color var(--dur) var(--ease);
@@ -309,7 +264,7 @@
 :where(.home-main) .atlas-body {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
   min-width: 0;
 }
 
@@ -340,9 +295,7 @@
   font-family: var(--font-mono);
   font-size: 12px;
   line-height: 1;
-  transition:
-    color var(--dur) var(--ease),
-    transform var(--dur) var(--ease);
+  transition: color var(--dur) var(--ease), transform var(--dur) var(--ease);
 }
 
 :where(.home-main) .atlas-layer:hover .atlas-arrow {
@@ -356,7 +309,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 6px 14px;
-  padding: 12px clamp(18px, 1.7vw, 24px);
+  padding: 11px clamp(16px, 1.6vw, 22px);
   border-top: 1px solid var(--line-soft);
   color: var(--muted);
   letter-spacing: 0.14em;
@@ -371,218 +324,332 @@
 }
 
 /* ==========================================================================
-   02 · SCOPE BAND
+   02 · SIGNAL BAND
    ========================================================================== */
 
-:where(.home-main) .scope-band {
-  position: relative;
+:where(.home-main) .signal-band {
   border-block: 1px solid var(--line);
   background: var(--bg-deep);
 }
 
-:where(.home-main) .scope-inner {
+:where(.home-main) .signal-inner {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(18px, 2.4vw, 40px);
-  padding-block: clamp(22px, 2.6vw, 32px);
+  gap: 10px 32px;
+  padding-block: 16px;
 }
 
-:where(.home-main) .scope-label {
-  margin: 0;
-  color: var(--muted);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-:where(.home-main) .scope-metrics {
-  display: flex;
-  align-items: center;
-  gap: clamp(18px, 2.4vw, 32px);
-}
-
-:where(.home-main) .scope-metric {
-  display: flex;
-  align-items: baseline;
-  gap: 9px;
-  margin: 0;
+:where(.home-main) .signal-text {
   color: var(--muted);
   font-size: var(--fs-meta);
+  line-height: 1.7;
+}
+
+:where(.home-main) .signal-text strong {
+  color: var(--ink);
+  font-weight: 550;
+}
+
+:where(.home-main) .signal-meta {
+  color: var(--subtle);
+  font-size: 0.65625rem;
+  letter-spacing: 0.14em;
   white-space: nowrap;
-}
-
-:where(.home-main) .scope-metric strong {
-  color: var(--ink-strong);
-  font-family: var(--font-mono);
-  font-size: clamp(1.375rem, 1.6vw + 0.9rem, 2rem);
-  font-weight: 400;
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
-  letter-spacing: -0.03em;
-}
-
-:where(.home-main) .scope-divider {
-  width: 1px;
-  height: 26px;
-  background: var(--line);
-}
-
-:where(.home-main) .scope-note {
-  max-width: 32em;
-  margin: 0;
-  color: var(--muted);
-  font-size: var(--fs-meta);
-  line-height: 1.85;
 }
 
 /* ==========================================================================
-   03 · ARCHITECTURE
+   03 · SELECTED WORK
    ========================================================================== */
 
-:where(.home-main) .architecture-intro {
-  max-width: 36em;
-  margin-top: clamp(22px, 2.4vw, 32px);
-  color: var(--muted);
-  font-size: var(--fs-body);
-  line-height: 1.95;
+:where(.home-main) .featured-section .section-heading,
+:where(.home-main) .projects-section .section-heading {
+  margin-bottom: clamp(26px, 3vw, 40px);
 }
 
-:where(.home-main) .architecture-grid {
+:where(.home-main) .featured-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+:where(.home-main) .featured-item {
+  border-bottom: 1px solid var(--line);
+}
+
+:where(.home-main) .featured-row {
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(16px, 1.8vw, 26px);
-  margin-top: clamp(36px, 4.4vw, 60px);
+  grid-template-columns: 52px minmax(0, 1fr) minmax(0, 268px);
+  align-items: start;
+  gap: clamp(14px, 1.8vw, 28px);
+  padding: clamp(16px, 1.7vw, 22px) clamp(6px, 1vw, 14px);
+  transition: background-color var(--dur) var(--ease);
 }
 
-:where(.home-main) .arch-cell {
+:where(.home-main) .featured-row::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 2px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 220ms var(--ease);
+}
+
+:where(.home-main) .featured-row:hover,
+:where(.home-main) .featured-row:focus-visible {
+  background: var(--accent-wash);
+}
+
+:where(.home-main) .featured-row:hover::before,
+:where(.home-main) .featured-row:focus-visible::before {
+  transform: scaleY(1);
+}
+
+:where(.home-main) .featured-index {
+  padding-top: 1px;
+  color: var(--accent);
+  font-size: 1.125rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  opacity: 0.7;
+  transition: opacity var(--dur) var(--ease);
+}
+
+:where(.home-main) .featured-row:hover .featured-index {
+  opacity: 1;
+}
+
+[data-theme="light"] :where(.home-main) .featured-index {
+  opacity: 0.9;
+}
+
+:where(.home-main) .featured-main {
   display: flex;
+  flex-direction: column;
   min-width: 0;
 }
 
-:where(.home-main) .architecture-card {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: clamp(24px, 2.6vw, 38px);
-  overflow: hidden;
-}
-
-:where(.home-main) .architecture-card:hover {
-  background: var(--surface-2);
-}
-
-:where(.home-main) .arch-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: clamp(22px, 2.4vw, 34px);
-}
-
-:where(.home-main) .arch-kicker {
+:where(.home-main) .featured-kicker {
   color: var(--muted);
-  font-size: 0.65625rem;
-  letter-spacing: 0.16em;
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   transition: color var(--dur) var(--ease);
 }
 
-:where(.home-main) .arch-mark {
-  color: var(--subtle);
-  font-family: var(--font-mono);
-  font-size: 13px;
-  line-height: 1;
-  transition:
-    color var(--dur) var(--ease),
-    transform var(--dur) var(--ease);
-}
-
-:where(.home-main) .architecture-card:hover .arch-kicker {
+:where(.home-main) .featured-row:hover .featured-kicker {
   color: var(--accent);
 }
 
-:where(.home-main) .architecture-card:hover .arch-mark {
-  color: var(--accent);
-  transform: rotate(90deg);
-}
-
-:where(.home-main) .architecture-card h3 {
+:where(.home-main) .featured-title {
+  margin-top: 6px;
   color: var(--ink-strong);
-  font-size: var(--fs-h3);
+  font-size: clamp(1.25rem, 1.1vw + 1rem, 1.5rem);
+  font-weight: 600;
+  line-height: 1.32;
   letter-spacing: var(--tracking-heading);
 }
 
-:where(.home-main) .architecture-card p {
-  flex: 1 1 auto;
-  max-width: 40em;
-  margin-top: 12px;
+:where(.home-main) .featured-summary {
+  display: -webkit-box;
+  margin-top: 8px;
+  max-width: 52em;
+  overflow: hidden;
   color: var(--muted);
-  font-size: var(--fs-body);
-  line-height: 1.85;
+  font-size: var(--fs-meta);
+  line-height: 1.75;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
-:where(.home-main) .arch-foot {
+:where(.home-main) .featured-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+:where(.home-main) .featured-tags > span {
+  padding: 3px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  color: var(--subtle);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+:where(.home-main) .featured-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+  min-width: 0;
+  padding-top: 2px;
+}
+
+:where(.home-main) .featured-foot {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 16px;
-  margin-top: clamp(20px, 2vw, 28px);
-  padding-top: clamp(14px, 1.4vw, 18px);
-  border-top: 1px solid var(--line-soft);
+  width: 100%;
 }
 
-:where(.home-main) .architecture-destination {
-  color: var(--ink);
+:where(.home-main) .featured-langs {
+  flex: 1 1 auto;
+  color: var(--subtle);
+  font-size: 0.6875rem;
+  line-height: 1.7;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+:where(.home-main) .featured-arrow {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  color: var(--muted);
+  transition: color var(--dur) var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+:where(.home-main) .featured-row:hover .featured-arrow {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+  transform: rotate(45deg);
+}
+
+:where(.home-main) .featured-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  margin-top: clamp(12px, 1.6vw, 18px);
+  color: var(--muted);
   font-size: var(--fs-meta);
-  font-weight: 500;
-  transition: color var(--dur) var(--ease);
+  transition: color var(--dur) var(--ease), gap var(--dur) var(--ease);
 }
 
-:where(.home-main) .architecture-card:hover .architecture-destination {
+:where(.home-main) .featured-all:hover {
+  gap: 15px;
   color: var(--accent);
 }
 
 /* ==========================================================================
-   04 · PROJECTS
+   04 · PROJECT INDEX
    ========================================================================== */
 
-:where(.home-main) .project-toolbar {
+:where(.home-main) .project-tools {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(14px, 2vw, 28px);
-  margin-bottom: clamp(26px, 3vw, 40px);
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--line-soft);
+  gap: 12px 20px;
+  margin-bottom: 14px;
+}
+
+:where(.home-main) .project-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 260px;
+  max-width: 360px;
+  min-height: 42px;
+  padding: 0 15px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--muted);
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+:where(.home-main) .project-filter:focus-within {
+  border-color: var(--accent-deep);
+  background: var(--surface-2);
+}
+
+:where(.home-main) .project-filter svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+
+:where(.home-main) .project-filter input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: var(--fs-meta);
+  outline: none;
+}
+
+:where(.home-main) .project-filter input::placeholder {
+  color: var(--subtle);
+}
+
+:where(.home-main) .project-filter input::-webkit-search-cancel-button {
+  cursor: pointer;
+  filter: grayscale(1);
+  opacity: 0.7;
+}
+
+:where(.home-main) .project-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.65625rem;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+:where(.home-main) .project-count::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+:where(.home-main) .project-count #project-count {
+  color: var(--ink);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
 }
 
 :where(.home-main) .category-filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
 }
 
 :where(.home-main) .category-filters button {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  min-height: 40px;
-  padding: 0 14px;
+  min-height: 36px;
+  padding: 0 12px;
   border: 1px solid var(--line);
   border-radius: var(--radius-pill);
   background: transparent;
   color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
   line-height: 1;
-  letter-spacing: 0.02em;
   white-space: nowrap;
-  transition:
-    color var(--dur) var(--ease),
-    border-color var(--dur) var(--ease),
-    background var(--dur) var(--ease);
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease), background var(--dur) var(--ease);
 }
 
 :where(.home-main) .category-filters button:hover {
@@ -598,6 +665,7 @@
 
 :where(.home-main) .category-filters button span {
   color: var(--subtle);
+  font-family: var(--font-mono);
   font-size: 0.625rem;
 }
 
@@ -605,267 +673,206 @@
   color: var(--accent);
 }
 
-:where(.home-main) .project-count {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0;
-  color: var(--muted);
-  letter-spacing: 0.14em;
-  white-space: nowrap;
+:where(.home-main) .project-index {
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
 }
 
-:where(.home-main) .project-count::before {
-  content: "";
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 10px var(--accent-glow);
+:where(.home-main) .project-row {
+  border-bottom: 1px solid var(--line-soft);
 }
 
-:where(.home-main) .project-count #project-count {
-  color: var(--ink);
-  font-size: 0.8125rem;
-  letter-spacing: 0.06em;
-}
-
-/* ---------- grid + cards -------------------------------------------------- */
-
-:where(.home-main) .project-grid {
+:where(.home-main) .project-row-link {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(18px, 2vw, 28px);
-}
-
-/* reveal stagger — right column lags the left one */
-:where(.home-main) .project-grid > .project-cell:nth-child(2n),
-:where(.home-main) .architecture-grid > .arch-cell:nth-child(2n) {
-  --reveal-delay: 90ms;
-}
-
-:where(.home-main) .project-cell {
-  display: flex;
-  min-width: 0;
-}
-
-:where(.home-main) .project-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: clamp(24px, 2.4vw, 36px);
-  overflow: hidden;
-}
-
-:where(.home-main) .project-card:hover {
-  background: var(--surface-2);
-}
-
-:where(.home-main) .project-numeral {
-  position: absolute;
-  top: clamp(10px, 1.2vw, 18px);
-  right: clamp(16px, 1.6vw, 26px);
-  z-index: 0;
-  color: var(--accent);
-  font-size: clamp(2.75rem, 4.2vw, 4.5rem);
-  line-height: 0.8;
-  letter-spacing: -0.06em;
-  opacity: 0.1;
-  pointer-events: none;
-  user-select: none;
-  transition: opacity var(--dur-slow) var(--ease);
-}
-
-:where(.home-main) .project-card:hover .project-numeral {
-  opacity: 0.16;
-}
-
-:where(.home-main) .project-head {
-  position: relative;
-  z-index: 1;
-  display: flex;
+  grid-template-columns: 38px minmax(0, 1fr) 92px minmax(0, 148px) 26px;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  gap: clamp(12px, 1.5vw, 24px);
+  min-height: 64px;
+  padding: 9px clamp(4px, 0.8vw, 10px);
+  transition: background-color var(--dur) var(--ease);
 }
 
-:where(.home-main) .project-kicker {
-  color: var(--muted);
-  font-size: 0.65625rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+:where(.home-main) .project-row:hover {
+  background: var(--accent-wash);
+}
+
+:where(.home-main) .project-row:focus-within {
+  background: var(--accent-wash);
+}
+
+:where(.home-main) .project-row-num {
+  color: var(--subtle);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
   transition: color var(--dur) var(--ease);
 }
 
-:where(.home-main) .project-card:hover .project-kicker {
+:where(.home-main) .project-row:hover .project-row-num {
   color: var(--accent);
 }
 
-:where(.home-main) .project-card h3 {
-  position: relative;
-  z-index: 1;
-  margin-top: clamp(24px, 2.4vw, 34px);
-  color: var(--ink-strong);
-  font-size: clamp(1.5rem, 0.95vw + 1.15rem, 1.9375rem);
-  line-height: 1.32;
-  letter-spacing: var(--tracking-heading);
-}
-
-:where(.home-main) .project-card-summary {
-  position: relative;
-  z-index: 1;
-  margin-top: clamp(10px, 1vw, 14px);
-  margin-bottom: clamp(16px, 1.8vw, 24px);
-  color: var(--muted);
-  font-size: var(--fs-body);
-  line-height: 1.82;
-}
-
-:where(.home-main) .project-card-meta {
+:where(.home-main) .project-row-main {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 8px 20px;
-  margin-top: auto;
-  padding-top: clamp(16px, 1.6vw, 20px);
-  border-top: 1px solid var(--line-soft);
-}
-
-:where(.home-main) .project-card-langs {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 10px;
+  flex-direction: column;
+  gap: 2px;
   min-width: 0;
 }
 
-:where(.home-main) .project-label {
+:where(.home-main) .project-row-title {
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 550;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+:where(.home-main) .project-row-summary {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: var(--fs-meta);
+  line-height: 1.6;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+:where(.home-main) .project-row-domain {
   color: var(--muted);
   font-size: 0.625rem;
   letter-spacing: 0.12em;
-  white-space: nowrap;
+  text-transform: uppercase;
 }
 
-:where(.home-main) .project-card-langs strong {
-  color: var(--ink);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 400;
+:where(.home-main) .project-row-langs {
+  overflow: hidden;
+  color: var(--subtle);
+  font-size: 0.65625rem;
   line-height: 1.6;
-  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-:where(.home-main) .project-role {
+:where(.home-main) .project-row-arrow {
+  justify-self: end;
+  color: var(--subtle);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1;
+  transition: color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+:where(.home-main) .project-row:hover .project-row-arrow {
+  color: var(--accent);
+  transform: translate(2px, -2px);
+}
+
+:where(.home-main) .project-empty {
+  margin-top: 28px;
   color: var(--muted);
-  font-size: 0.8125rem;
-}
-
-:where(.home-main) .project-foot {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: clamp(14px, 1.4vw, 18px);
-}
-
-:where(.home-main) .project-foot .tag-list {
-  min-width: 0;
-}
-
-:where(.home-main) .project-arrow {
-  flex: none;
+  font-size: var(--fs-meta);
 }
 
 /* ==========================================================================
-   05 · ARCHITECTURE IN PRACTICE
+   05 · ENGINEERING SCOPE
    ========================================================================== */
 
-:where(.home-main) .about-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  align-items: start;
-  gap: clamp(32px, 4.6vw, 88px);
+:where(.home-main) .scope-section {
+  border-top: 1px solid var(--line);
 }
 
-:where(.home-main) .about-head h2 {
+/* ==========================================================================
+   06 · CONTACT
+   ========================================================================== */
+
+:where(.home-main) .contact-section {
+  border-top: 1px solid var(--line);
+  background: var(--bg-deep);
+}
+
+:where(.home-main) .contact-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  align-items: end;
+  gap: clamp(28px, 4.4vw, 72px);
+}
+
+:where(.home-main) .contact-head h2 {
   max-width: 16ch;
-  margin-top: clamp(16px, 1.8vw, 24px);
+  margin-top: clamp(14px, 1.6vw, 20px);
   font-size: var(--fs-h2);
   letter-spacing: var(--tracking-heading);
 }
 
-:where(.home-main) .about-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-:where(.home-main) .about-copy p {
-  max-width: 46em;
+:where(.home-main) .contact-copy p {
+  max-width: 42em;
   color: var(--muted);
   font-size: var(--fs-body);
-  line-height: 1.95;
+  line-height: 1.85;
 }
 
-:where(.home-main) .about-copy p:first-child {
-  color: var(--ink);
-  font-size: var(--fs-body-lg);
-  line-height: 1.9;
+:where(.home-main) .contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  margin-top: clamp(20px, 2.2vw, 28px);
 }
 
-:where(.home-main) .about-copy p + p {
-  margin-top: clamp(16px, 1.6vw, 22px);
-}
-
-:where(.home-main) .about-copy .text-link {
-  margin-top: clamp(20px, 2vw, 28px);
+:where(.home-main) .contact-note {
+  margin-top: 16px;
+  color: var(--subtle);
+  font-size: 0.65625rem;
+  letter-spacing: 0.14em;
 }
 
 /* ==========================================================================
-   RESPONSIVE — 1200 / 1024 / 820 / 560 / 400
+   REVEAL — keep motion quiet and staggered by list position
    ========================================================================== */
 
-@media (max-width: 1200px) {
+:where(.home-main) .featured-item:nth-child(2),
+:where(.home-main) .project-row:nth-child(2n) {
+  --reveal-delay: 60ms;
+}
+
+:where(.home-main) .featured-item:nth-child(3),
+:where(.home-main) .project-row:nth-child(3n) {
+  --reveal-delay: 110ms;
+}
+
+/* ==========================================================================
+   RESPONSIVE — 1180 / 1024 / 880 / 760 / 520
+   ========================================================================== */
+
+@media (max-width: 1180px) {
   :where(.home-main) .hero-inner {
-    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
-    gap: clamp(36px, 4.2vw, 60px);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.86fr);
+    gap: clamp(28px, 3.4vw, 48px);
   }
 
-  :where(.home-main) .hero-title {
-    max-width: 16ch;
+  :where(.home-main) .featured-row {
+    grid-template-columns: 44px minmax(0, 1fr) minmax(0, 232px);
+  }
+
+  :where(.home-main) .project-row-link {
+    grid-template-columns: 34px minmax(0, 1fr) 82px minmax(0, 120px) 24px;
+    gap: 12px 16px;
   }
 }
 
 @media (max-width: 1024px) {
   :where(.home-main) .hero-inner {
     grid-template-columns: minmax(0, 1fr);
-    gap: clamp(40px, 6vw, 60px);
+    gap: clamp(32px, 4.6vw, 44px);
   }
 
-  :where(.home-main) .hero-copy {
-    padding-top: 0;
+  :where(.home-main) .hero-title {
+    max-width: 16ch;
   }
 
-  :where(.home-main) .hero-intro {
-    max-width: 42em;
+  :where(.home-main) .hero-identity {
+    max-width: 44em;
   }
 
-  :where(.home-main) .hero-search {
-    max-width: 34rem;
-  }
-
-  :where(.home-main) .scope-note {
-    flex-basis: 100%;
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 820px) {
-  /* hero single column → atlas becomes a 2-column layer grid, no spine */
   :where(.home-main) .atlas-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -889,9 +896,8 @@
   }
 
   :where(.home-main) .atlas-layer {
-    grid-template-columns: 22px minmax(0, 1fr) 14px;
-    gap: 10px;
-    padding: 15px clamp(16px, 2vw, 22px);
+    padding: 13px clamp(14px, 1.8vw, 20px);
+    min-height: 58px;
   }
 
   :where(.home-main) .atlas-layer::before,
@@ -903,92 +909,125 @@
     box-shadow: inset 2px 0 0 var(--accent);
   }
 
-  :where(.home-main) .architecture-grid {
+  :where(.home-main) .contact-inner {
     grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(24px, 3.4vw, 36px);
   }
 
-  /* 1-col cards hug their content — no stretched paragraph gap */
-  :where(.home-main) .arch-cell {
-    align-items: flex-start;
-  }
-
-  :where(.home-main) .architecture-card p {
-    flex: 0 0 auto;
-  }
-
-  :where(.home-main) .arch-foot {
-    margin-top: 12px;
-    padding-top: 6px;
-  }
-
-  :where(.home-main) .project-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  :where(.home-main) .about-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: clamp(28px, 4vw, 40px);
-  }
-
-  :where(.home-main) .about-head h2 {
+  :where(.home-main) .contact-head h2 {
     max-width: 20ch;
-  }
-
-  :where(.home-main) .project-toolbar {
-    flex-wrap: wrap;
-    row-gap: 14px;
-  }
-
-  /* chips wrap — every category stays visible, no hidden overflow */
-  :where(.home-main) .category-filters {
-    width: 100%;
-    gap: 6px;
-  }
-
-  :where(.home-main) .category-filters button {
-    padding-inline: 12px;
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 900px) {
+  :where(.home-main) .featured-row {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 8px 14px;
+    padding-block: 18px;
+  }
+
+  :where(.home-main) .featured-side {
+    grid-column: 2;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  :where(.home-main) .featured-tags {
+    justify-content: flex-start;
+  }
+
+  :where(.home-main) .featured-foot {
+    justify-content: space-between;
+  }
+
+  :where(.home-main) .featured-langs {
+    flex: 0 1 auto;
+    text-align: left;
+  }
+
+  :where(.home-main) .featured-arrow {
+    width: 32px;
+    height: 32px;
+  }
+
+  :where(.home-main) .project-row-link {
+    grid-template-columns: 30px minmax(0, 1fr) 22px;
+    gap: 4px 12px;
+    padding-block: 13px;
+  }
+
+  :where(.home-main) .project-row-main {
+    grid-column: 2;
+  }
+
+  :where(.home-main) .project-row-summary {
+    display: -webkit-box;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  :where(.home-main) .project-row-domain,
+  :where(.home-main) .project-row-langs {
+    display: none;
+  }
+
+  :where(.home-main) .project-row-arrow {
+    grid-column: 3;
+  }
+
+  :where(.home-main) .category-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 26px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 26px), transparent);
+  }
+
+  :where(.home-main) .category-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  :where(.home-main) .project-filter {
+    max-width: none;
+  }
+}
+
+@media (max-width: 520px) {
   :where(.home-main) .hero {
-    padding-top: 30px;
-    padding-bottom: 56px;
+    padding-top: 22px;
+    padding-bottom: 40px;
   }
 
   :where(.home-main) .hero-title {
     max-width: none;
-    font-size: clamp(2.375rem, 11.6vw, 3rem);
+    font-size: clamp(2.125rem, 10.4vw, 2.625rem);
+    line-height: 1.12;
   }
 
-  :where(.home-main) .hero-intro {
+  :where(.home-main) .hero-identity {
     font-size: var(--fs-body);
-    line-height: 1.9;
-  }
-
-  :where(.home-main) .hero-meta {
-    gap: 8px 14px;
-  }
-
-  :where(.home-main) .scope-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
-  }
-
-  :where(.home-main) .scope-divider {
-    height: 22px;
-  }
-
-  :where(.home-main) .scope-metrics {
-    gap: 18px;
-  }
-
-  :where(.home-main) .scope-note {
     line-height: 1.8;
   }
 
-  /* atlas back to a single column */
+  :where(.home-main) .hero-actions {
+    align-items: stretch;
+  }
+
+  :where(.home-main) .hero-actions .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    padding-inline: 16px;
+  }
+
+  :where(.home-main) .hero-link {
+    width: 100%;
+    padding-inline: 0;
+  }
+
   :where(.home-main) .atlas-list {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1006,62 +1045,26 @@
     border-left: 0;
   }
 
-  :where(.home-main) .atlas-foot {
-    font-size: 0.625rem;
-    letter-spacing: 0.12em;
+  :where(.home-main) .signal-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 
-  :where(.home-main) .atlas-signal {
-    font-size: 0.5625rem;
-    letter-spacing: 0.16em;
+  :where(.home-main) .signal-meta {
+    white-space: normal;
   }
 
-  :where(.home-main) .architecture-card,
-  :where(.home-main) .project-card {
-    padding: 22px;
+  :where(.home-main) .featured-row {
+    grid-template-columns: 28px minmax(0, 1fr);
   }
 
-  :where(.home-main) .arch-top {
-    margin-bottom: 24px;
+  :where(.home-main) .featured-summary {
+    -webkit-line-clamp: 3;
   }
 
-  :where(.home-main) .project-numeral {
-    font-size: 3.5rem;
-  }
-
-  :where(.home-main) .project-foot {
-    gap: 12px;
-  }
-
-  :where(.home-main) .about-copy p {
-    line-height: 1.9;
-  }
-}
-
-@media (max-width: 400px) {
-  :where(.home-main) .hero-title {
-    font-size: 2.25rem;
-  }
-
-  :where(.home-main) .atlas-tech {
-    font-size: 0.625rem;
-  }
-
-  :where(.home-main) .architecture-card,
-  :where(.home-main) .project-card {
-    padding: 18px;
-  }
-
-  :where(.home-main) .project-numeral {
-    font-size: 3rem;
-    opacity: 0.08;
-  }
-
-  :where(.home-main) .project-card h3 {
-    font-size: 1.4375rem;
-  }
-
-  :where(.home-main) .project-count {
-    letter-spacing: 0.1em;
+  :where(.home-main) .contact-actions .btn {
+    flex: 1 1 100%;
+    justify-content: center;
   }
 }

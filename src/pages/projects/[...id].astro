@@ -15,7 +15,7 @@ const order = String(project.data.order).padStart(2, '0');
 <Layout title={`${project.data.title} · Xander`} description={project.data.summary}>
   <main id="main" class="project-page">
     <div class="container">
-      <nav class="breadcrumb project-breadcrumb" aria-label="面包屑"><a href={base}>主页</a><span>/</span><a href={`${base}#projects`}>项目经验</a><span>/</span><span>{category.title}</span></nav>
+      <nav class="breadcrumb project-breadcrumb" aria-label="面包屑"><a href={base}>主页</a><span aria-hidden="true">/</span><a href={`${base}#projects`}>项目经验</a><span aria-hidden="true">/</span><span>{category.title}</span></nav>
 
       <article data-pagefind-body>
         <header class="project-hero">

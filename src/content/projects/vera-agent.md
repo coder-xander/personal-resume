@@ -4,6 +4,7 @@ summary: "独立设计并实现设备运维 Agent，通过 Lark、ADK 与 MCP �
 category: ai
 order: 13
 role: "独立设计与实现"
+featured: true
 languages: ["Go（Agent 服务、工具编排与平台接入）"]
 technologies: ["Go", "Google ADK", "Gemini", "MCP", "Lark", "RBAC"]
 pipeline:

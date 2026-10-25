@@ -4,6 +4,7 @@ summary: "把厂商 BSP、Linux rootfs、采集硬件驱动和发布工具整理
 category: system
 order: 1
 role: "独立设计与实现"
+featured: true
 languages: ["C（内核与驱动）", "Shell（系统构建）"]
 technologies: ["ARM64", "Linux", "RK3576", "U-Boot", "IIO / GPIO"]
 pipeline: ["板级 BSP", "驱动与 DTS", "Ubuntu rootfs", "系统镜像", "设备运行"]

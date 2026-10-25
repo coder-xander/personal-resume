@@ -4,6 +4,7 @@ summary: "将设备遥测、远程诊断、OTA、操作审计和智能体工具�
 category: cloud
 order: 7
 role: "独立设计与实现"
+featured: true
 languages: ["Go（后端）", "TypeScript（前端）", "SQL（数据查询与迁移）"]
 technologies: ["Go", "Vue 3", "PostgreSQL", "MQTT", "ADK / MCP", "Docker"]
 pipeline:
